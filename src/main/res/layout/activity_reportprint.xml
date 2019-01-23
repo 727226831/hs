@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.declaration.ReportprintActivity">
+    <LinearLayout
+        android:id="@+id/ll_form"
+        android:layout_margin="@dimen/layout_margin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<TextView
+    android:padding="@dimen/layout_margin"
+    style="@style/form_fontsize"
+    android:background="@drawable/bg_border"
+    android:text="AS23 项目面料总成生产技术"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="工位"
+        android:layout_width="60dp"
+     />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="分成总名称"
+        android:layout_width="90dp"
+ />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="工单号"
+        android:layout_width="70dp" />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="生产日期"
+        android:layout_width="80dp" />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="数量"
+        android:layout_width="60dp"
+ />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="托盘/料架编号"
+        android:layout_width="110dp"
+         />
+    <TextView
+        style="@style/form_fontsize"
+        android:background="@drawable/bg_border"
+        android:text="操作工"
+        android:layout_width="match_parent" />
+</LinearLayout>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/form_fontsize"
+                android:background="@drawable/bg_border"
+                android:text="P040"
+                android:layout_width="60dp"
+                android:layout_height="38dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/form_fontsize"
+
+                    android:background="@drawable/bg_border"
+                    android:text="上窗帘"
+                    android:layout_width="90dp"
+                  />
+                <TextView
+                    style="@style/form_fontsize"
+                    android:background="@drawable/bg_border"
+                    android:text="下窗帘"
+                    android:layout_width="90dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="70dp"
+                    />
+                <TextView
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="70dp"
+                 />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="80dp"
+                    />
+                <TextView
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="80dp"
+                     />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="60dp"
+                   />
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="60dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="110dp"
+                   />
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="110dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+
+                    android:layout_width="match_parent"
+                   />
+                <TextView
+                    style="@style/form_fontsize"
+                    android:padding="@dimen/layout_margin"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="match_parent"
+                     />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:text="P050"
+                android:layout_width="60dp"
+              />
+
+                <TextView
+                    style="@style/form_fontsize"
+
+                    android:background="@drawable/bg_border"
+                    android:text="布窗总成"
+                    android:layout_width="90dp"
+                     />
+
+                <TextView
+
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="70dp"
+                     />
+
+
+                <TextView
+
+                    android:background="@drawable/bg_border"
+                    style="@style/form_fontsize"
+                    android:layout_width="80dp"
+                    />
+
+
+                <TextView
+                    style="@style/form_fontsize"
+
+                    android:background="@drawable/bg_border"
+                    android:layout_width="60dp"
+                     />
+
+
+                <TextView
+                    style="@style/form_fontsize"
+
+                    android:background="@drawable/bg_border"
+                    android:layout_width="110dp"
+                     />
+
+
+                <TextView
+                    style="@style/form_fontsize"
+
+                    android:background="@drawable/bg_border"
+                    android:layout_width="match_parent"
+                     />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/form_fontsize"
+
+
+                android:background="@drawable/bg_border"
+                android:text="P060"
+                android:layout_width="60dp"
+                 />
+
+            <TextView
+                style="@style/form_fontsize"
+
+
+                android:background="@drawable/bg_border"
+                android:text="密布板分总成"
+                android:layout_width="90dp"
+                />
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="70dp"
+                 />
+
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="80dp"
+                 />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="60dp"
+                 />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="110dp"
+                 />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="match_parent"
+               />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/form_fontsize"
+
+
+                android:background="@drawable/bg_border"
+                android:text="P070"
+                android:layout_width="60dp"
+                />
+
+            <TextView
+                style="@style/form_fontsize"
+
+
+                android:background="@drawable/bg_border"
+                android:text="密布板分总成"
+                android:layout_width="90dp"
+                />
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="70dp"
+                />
+
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="80dp"
+               />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="60dp"
+                />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="110dp"
+              />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="match_parent"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/form_fontsize"
+
+
+                android:background="@drawable/bg_border"
+                android:text="P080"
+                android:layout_width="60dp"
+                />
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:text="面料总成"
+                android:layout_width="90dp"
+                />
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="70dp"
+               />
+
+
+            <TextView
+
+                android:background="@drawable/bg_border"
+                style="@style/form_fontsize"
+                android:layout_width="80dp"
+                />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="60dp"
+               />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="110dp"
+                />
+
+
+            <TextView
+                style="@style/form_fontsize"
+
+                android:background="@drawable/bg_border"
+                android:layout_width="match_parent"
+               />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="材料名称"
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="物料零件号"
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="物料入库批号"
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="物料批次号"
+                        android:layout_width="60dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="面料卷"
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="171410101-01"
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="60dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="60dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="C型管"
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="171510501"
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="60dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="密底板"
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="171510401"
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="60dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="胶水"
+                        android:layout_width="150dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+                        android:text="171400801"
+                        android:layout_width="70dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="80dp" />
+                    <TextView
+                        style="@style/form_fontsize"
+
+                        android:layout_width="60dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/form_fontsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:gravity="start"
+                    android:text="面料进入静置房时间："
+                    />
+                <TextView
+                    style="@style/form_fontsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:gravity="left"
+                    android:text="备注："
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+
+        android:id="@+id/b_print"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@color/blue"
+        android:text="打印"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+</LinearLayout>

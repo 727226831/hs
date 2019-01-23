@@ -35,7 +35,7 @@
                 <EditText
                     android:layout_centerVertical="true"
                     style="@style/edittext"
-                    android:id="@+id/et_cwhcode"
+                    android:id="@+id/et_code"
                     android:layout_toRightOf="@id/tv_title1"
                     android:layout_toLeftOf="@id/iv_cwhcode"
                     />
@@ -44,15 +44,37 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:text="工单号："
-                    style="@style/textview"
-                    />
-                <TextView
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="工单号     ："
+                        style="@style/textview"
+                        />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/tv_cmocode"
+                        style="@style/textview"
 
-
-                    style="@style/textview" />
+                         />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="存货名称："
+                        style="@style/textview"
+                        />
+                    <TextView
+                        android:id="@+id/tv_cInvName"
+                        style="@style/textview" />
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -63,7 +85,7 @@
                     />
                 <TextView
 
-
+                     android:id="@+id/tv_cOpdesc"
                     style="@style/textview" />
             </LinearLayout>
             <LinearLayout
@@ -86,12 +108,22 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="工单数量："
-                    style="@style/textview"
+                    android:textColor="@color/black"
+                    android:layout_margin="@dimen/layout_margin"
+                    style="@style/item_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
                     />
                 <TextView
 
-
-                    style="@style/textview" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:id="@+id/tv_imoqty"
+                    style="@style/item_small"
+                    android:textColor="@color/black"
+                    />
             </LinearLayout>
             <LinearLayout style="@style/line" />
             <LinearLayout

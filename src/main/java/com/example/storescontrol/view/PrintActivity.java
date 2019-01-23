@@ -42,6 +42,7 @@ public class PrintActivity extends BaseActivity {
     ArrivalHeadBean arrivalHeadBean;
     String cvenabbname,ddate;
     double overplus=-1;
+    boolean isRegister=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +191,7 @@ public class PrintActivity extends BaseActivity {
         }
     }
 
-   boolean isRegister=false;
+
 
     @Override
     protected void onDestroy() {
