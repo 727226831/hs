@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -88,7 +89,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
     double iQuantitytotal=-1;
     double overplus=-1;
 
-    int MY_PERMISSIONS_REQUEST_CALL_PHONE=300;
+   final int MY_PERMISSIONS_REQUEST_CAMERA=300;
     int  MY_PERMISSIONS_REQUEST_CALL_PHONE2=400;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -412,9 +413,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
                     break;
                 case R.id.ib_upload:
-
-                    takePhone();
-
+                    requestPermission();
                     break;
             }
         }
@@ -422,48 +421,53 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
 
 
-        public void takePhone() {
-            if (Build.VERSION.SDK_INT >= 23) {
-                int checkCallPhonePermission = ContextCompat.checkSelfPermission(ProductionwarehousingActivity.this,
-                        Manifest.permission.CAMERA);
-                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ProductionwarehousingActivity.this, new String[]{Manifest.permission.CAMERA,}
-                            , MY_PERMISSIONS_REQUEST_CALL_PHONE);
-                } else if (ContextCompat.checkSelfPermission(ProductionwarehousingActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ProductionwarehousingActivity.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                            MY_PERMISSIONS_REQUEST_CALL_PHONE2);
-                } else {
-                    //  takePhoto();
-                    autoObtainCameraPermission();
 
-                }
-
-            } else {
-                // takePhoto();
-                autoObtainCameraPermission();
-            }
-        }
-
-
-
-
-
-        private void openScan() {
-
-            new IntentIntegrator(ProductionwarehousingActivity.this)
-                    .setCaptureActivity(ScanActivity.class)
-                    .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
-                    .setPrompt("请对准二维码")// 设置提示语
-                    .setCameraId(0)// 选择摄像头,可使用前置或者后置
-                    .setBeepEnabled(false)// 是否开启声音,扫完码之后会"哔"的一声
-                    .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
-                    .initiateScan();// 初始化扫码
-
-        }
     };
+    public void requestPermission() {
+        int camera=ContextCompat.checkSelfPermission(ProductionwarehousingActivity.this,
+                Manifest.permission.CAMERA);
+        int storage=ContextCompat.checkSelfPermission(ProductionwarehousingActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        //判断是否授权
+        if(camera==PackageManager.PERMISSION_DENIED && storage==PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(ProductionwarehousingActivity.this,
+                    new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
+        }else {
+           getPhoto();
+        }
+    }
+
+
+
+
+
+    private void openScan() {
+
+        new IntentIntegrator(ProductionwarehousingActivity.this)
+                .setCaptureActivity(ScanActivity.class)
+                .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
+                .setPrompt("请对准二维码")// 设置提示语
+                .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                .setBeepEnabled(false)// 是否开启声音,扫完码之后会"哔"的一声
+                .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
+                .initiateScan();// 初始化扫码
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case MY_PERMISSIONS_REQUEST_CAMERA:
+                if(grantResults.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED
+                        && grantResults[1]==PackageManager.PERMISSION_GRANTED){
+                   getPhoto();
+                }
+                break;
+
+        }
+    }
 
     private void submit() {
         if(binding.etTimes.getText().toString().isEmpty()) {
@@ -565,42 +569,34 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
 
 
-    private void autoObtainCameraPermission() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                // ToastUtils.showShort(this, "您已经拒绝过一次");
+    private void getPhoto() {
+        if (hasSdcard()) {
+            String path = Environment.getExternalStorageDirectory() +
+                    File.separator + Environment.DIRECTORY_DCIM + File.separator;
+            String fileName = Untils.getPhotoFileName() + ".jpg";
+            file = new File(path);
+            if (!file.exists()) {
+                file.mkdir();
             }
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
-        } else {//有权限直接调用系统相机拍照
-            if (hasSdcard()) {
-                String path = Environment.getExternalStorageDirectory() +
-                        File.separator + Environment.DIRECTORY_DCIM + File.separator;
-                String fileName = Untils.getPhotoFileName() + ".jpg";
-                file = new File(path);
-                if (!file.exists()) {
-                    file.mkdir();
-                }
 
-                photoUri = Uri.fromFile(new File(path + fileName));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    //通过FileProvider创建一个content类型的Uri
-                    file=new File(path + fileName);
-                photoUri=FileProvider.getUriForFile(ProductionwarehousingActivity.this
-                        ,"com.storescontrol.fileprovider",file);
-                Intent intentCamera = new Intent();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    intentCamera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                }
-                intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                //将拍照结果保存至photo_file的Uri中，不保留在相册中
-                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(intentCamera, imageresultcode);
-
+            photoUri = Uri.fromFile(new File(path + fileName));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                //通过FileProvider创建一个content类型的Uri
+                file=new File(path + fileName);
+            photoUri=FileProvider.getUriForFile(ProductionwarehousingActivity.this
+                    ,"com.storescontrol.fileprovider",file);
+            Intent intentCamera = new Intent();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intentCamera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
             }
+            intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+            //将拍照结果保存至photo_file的Uri中，不保留在相册中
+            intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(intentCamera, imageresultcode);
+
         }
+
+
     }
 
     public static boolean hasSdcard() {
