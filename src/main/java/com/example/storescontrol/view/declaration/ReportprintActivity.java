@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.storescontrol.R;
@@ -28,6 +29,7 @@ public class ReportprintActivity extends AppCompatActivity {
     private PrinterPort printerPort;
     boolean isRegister=false;
     View viewPrint;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +44,16 @@ public class ReportprintActivity extends AppCompatActivity {
             }
         });
         viewPrint=findViewById(R.id.ll_form);
+
     }
     public void printeData() {
         viewPrint.setDrawingCacheEnabled(true);
         viewPrint.buildDrawingCache();
         Bitmap bitmap=Bitmap.createBitmap(viewPrint.getDrawingCache());
         viewPrint.destroyDrawingCache();
+
         Matrix matrix = new Matrix();
-     //   matrix.postScale(0.8f, 0.8f);
+        matrix.postScale(0.5f, 0.5f);
         matrix.postRotate(90);
         Bitmap bitmapnew=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
         final Bitmap bmp = bitmapnew;
