@@ -90,7 +90,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
     double overplus=-1;
 
    final int MY_PERMISSIONS_REQUEST_CAMERA=300;
-    int  MY_PERMISSIONS_REQUEST_CALL_PHONE2=400;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

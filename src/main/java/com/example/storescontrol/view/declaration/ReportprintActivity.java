@@ -39,7 +39,9 @@ public class ReportprintActivity extends AppCompatActivity {
         buttonPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initbluetooth();
+                if(printerPort==null) {
+                    initbluetooth();
+                }
                 printeData();
             }
         });
@@ -53,7 +55,7 @@ public class ReportprintActivity extends AppCompatActivity {
         viewPrint.destroyDrawingCache();
 
         Matrix matrix = new Matrix();
-        matrix.postScale(0.5f, 0.5f);
+        matrix.postScale(0.7f, 0.7f);
         matrix.postRotate(90);
         Bitmap bitmapnew=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
         final Bitmap bmp = bitmapnew;
