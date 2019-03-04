@@ -26,7 +26,7 @@
                     />
 
                 <ImageView
-                    android:id="@+id/iv_cwhcode"
+                    android:id="@+id/iv_scan"
                     android:layout_margin="10dp"
                     android:layout_alignParentRight="true"
                     android:src="@mipmap/ic_scan"
@@ -37,7 +37,7 @@
                     style="@style/edittext"
                     android:id="@+id/et_code"
                     android:layout_toRightOf="@id/tv_title1"
-                    android:layout_toLeftOf="@id/iv_cwhcode"
+                    android:layout_toLeftOf="@id/iv_scan"
                     />
             </RelativeLayout>
             <LinearLayout
@@ -97,7 +97,7 @@
                     style="@style/textview"
                     />
                 <EditText
-                    android:id="@+id/et_people"
+                    android:id="@+id/et_cusercode"
                     android:layout_marginRight="@dimen/layout_margin"
                     android:layout_gravity="center_vertical"
                     style="@style/edittext"/>
@@ -152,6 +152,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:id="@+id/et_ihgqty"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
                         style="@style/edittext" />
@@ -166,6 +167,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:id="@+id/et_ctuopan1"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
                         style="@style/edittext" />
@@ -174,10 +176,12 @@
             </LinearLayout>
             <LinearLayout style="@style/line" />
             <LinearLayout
+                android:id="@+id/ll_unqualified"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:drawableRight="@mipmap/ic_choose"
                     android:layout_margin="@dimen/layout_margin"
                     android:text="完工不合格"
                     style="@style/item_normal"
@@ -199,6 +203,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:id="@+id/et_ibhgqty"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
                         style="@style/edittext" />
@@ -213,6 +218,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:id="@+id/et_ctuopan2"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
                         style="@style/edittext" />
@@ -230,6 +236,7 @@
                     style="@style/textview"
                     />
                 <EditText
+                    android:id="@+id/et_cmemo2"
                     android:layout_marginRight="@dimen/layout_margin"
                     android:layout_gravity="center_vertical"
                     style="@style/edittext" />

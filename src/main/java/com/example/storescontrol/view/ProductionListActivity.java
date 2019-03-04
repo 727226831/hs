@@ -1,12 +1,14 @@
 package com.example.storescontrol.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,6 +18,7 @@ import com.example.storescontrol.R;
 import com.example.storescontrol.Url.Request;
 import com.example.storescontrol.Url.Untils;
 import com.example.storescontrol.bean.TROutBywhcodeBean;
+import com.example.storescontrol.databinding.ItemProductionListBinding;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -104,15 +107,14 @@ public class ProductionListActivity extends BaseActivity {
 
             } });
     }
-    class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.VH>{
+  public   class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.VH>{
 
         @NonNull
         @Override
         public FunctionAdapter.VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View v=getLayoutInflater().inflate(R.layout.item_production_list,viewGroup,false);
-            return new FunctionAdapter.VH(v);
+            ItemProductionListBinding binding= DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),R.layout.item_production_list,viewGroup,false);
 
-
+            return new FunctionAdapter.VH(binding.getRoot());
         }
 
         private List<TROutBywhcodeBean.Data> mDatas;
@@ -122,13 +124,13 @@ public class ProductionListActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull  FunctionAdapter.VH vh,final int i) {
-            vh.textViewcwhname.setText(mDatas.get(i).getCWhName());
-            vh.textViewdate.setText(mDatas.get(i).getdDate());
-            vh.textViewcTRCode.setText(mDatas.get(i).getCTRCode());
-            vh.textViewtag.setText(i+1+"");
-
-
-            vh.linearLayout.setOnClickListener(new View.OnClickListener() {
+            ItemProductionListBinding binding=DataBindingUtil.getBinding(vh.itemView);
+            TROutBywhcodeBean.Data data=mDatas.get(i);
+            binding.setData(data);
+            binding.executePendingBindings();
+            binding.tvNumber.setText(i+1+"");
+            binding.tvDate.setText(mDatas.get(i).getdDate());
+            binding.lInput.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(ProductionListActivity.this,DetailListActivity.class);
@@ -137,12 +139,8 @@ public class ProductionListActivity extends BaseActivity {
                      intent.putExtra("menuname",getIntent().getStringExtra("menuname"));
                      intent.putExtra("ddate",mDatas.get(i).getdDate());
                     startActivity(intent);
-
                 }
             });
-
-
-
         }
 
         @Override
@@ -150,18 +148,9 @@ public class ProductionListActivity extends BaseActivity {
             return mDatas.size();
         }
         class  VH extends RecyclerView.ViewHolder{
-            TextView textViewcTRCode,textViewdate,textViewcwhname,textViewtag;
-            LinearLayout linearLayout;
+
             public VH(@NonNull View itemView) {
                 super(itemView);
-                linearLayout=itemView.findViewById(R.id.l_input);
-                textViewcTRCode=itemView.findViewById(R.id.tv_cTRCode);
-                textViewdate=itemView.findViewById(R.id.tv_date);
-                textViewcwhname=itemView.findViewById(R.id.tv_cWhName);
-                textViewtag=itemView.findViewById(R.id.tv_number);
-
-
-
             }
         }
     }

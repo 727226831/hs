@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.storescontrol.R;
 import com.example.storescontrol.Url.Request;
@@ -70,14 +71,17 @@ public class DispatchActivity extends BaseActivity {
 
                 try {
                     if(response.code()==200) {
+                        JSONObject object=new JSONObject(response.body().string());
 
-                        dispatchBean=new Gson().fromJson(response.body().string(),DispatchBean.class);
-                        functionAdapter=new FunctionAdapter(dispatchBean.getData());
-                        recyclerView.setLayoutManager(new LinearLayoutManager(DispatchActivity.this));
-                        recyclerView.addItemDecoration(new DividerItemDecoration(DispatchActivity.this,DividerItemDecoration.VERTICAL));
-                        recyclerView.setAdapter(functionAdapter);
-
-
+                        if(object.getString("Resultcode").equals("200")) {
+                            dispatchBean = new Gson().fromJson(response.body().string(), DispatchBean.class);
+                            functionAdapter = new FunctionAdapter(dispatchBean.getData());
+                            recyclerView.setLayoutManager(new LinearLayoutManager(DispatchActivity.this));
+                            recyclerView.addItemDecoration(new DividerItemDecoration(DispatchActivity.this, DividerItemDecoration.VERTICAL));
+                            recyclerView.setAdapter(functionAdapter);
+                        }else {
+                            Toast.makeText(DispatchActivity.this,object.getString("ResultMessage"),Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 } catch (Exception e) {

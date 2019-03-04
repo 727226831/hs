@@ -78,7 +78,6 @@ public class ProductionwarehousingActivity extends BaseActivity {
     File file;
 
     private  String stringScan; //扫描到的二维码
-    private static final int CAMERA_PERMISSIONS_REQUEST_CODE = 0x03;
     SharedPreferences sharedPreferences;
 
     boolean isCheck=false;//判断是否是生产/采购出库 之外的
@@ -203,7 +202,13 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
                             if(code.contains("$")){
                                 binding.etBatch.setText(code);
-                                parseCode(code);
+                              //  parseCode(code);
+                                stringScan=code;
+                                list=Untils.parseCode(code,0);
+                                if(!list.isEmpty()) {
+                                    getInventoryBycode(list.get(0));
+                                    binding.etTimes.setText("1");
+                                }
                             }else {
                                 Toast.makeText(ProductionwarehousingActivity.this,"类型错误",Toast.LENGTH_LONG).show();
                             }
@@ -218,23 +223,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
         }
 
-    /**
-     * parse code
-     * @param code
-     */
-    private void parseCode(String code){
-        stringScan=code;
-        if(code.isEmpty()){
-            return;
-        }
 
-        String  numbers=code.replace("$",",");
-        list = Arrays.asList(numbers.split(","));
-
-
-        getInventoryBycode(list.get(0));
-        binding.etTimes.setText("1");
-    }
 
 
     private void getInventoryBycode(String cinvcode) {
@@ -264,6 +253,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             arrivalHeadBean=gson.fromJson(data,ArrivalHeadBean.class);
                             string1=data.substring(1,data.length()-1)+",";
                             binding.setBean(arrivalHeadBean);
+
                             ccode =list.get(4);
                             if(ccode !=null) {
                                 getArrivalHeadBycode(ccode);
@@ -367,7 +357,13 @@ public class ProductionwarehousingActivity extends BaseActivity {
                         getCwhcode();
                         break;
                     case R.id.et_batch:
-                        parseCode(binding.etBatch.getText().toString());
+                        stringScan=binding.etBatch.getText().toString();
+                        list=Untils.parseCode(binding.etBatch.getText().toString(),0);
+
+                        if(!list.isEmpty()) {
+                            getInventoryBycode(list.get(0));
+                            binding.etTimes.setText("1");
+                        }
                         break;
                 }
             }

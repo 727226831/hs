@@ -257,8 +257,6 @@
             android:layout_height="wrap_content">
             <TextView
                 style="@style/form_fontsize"
-
-
                 android:background="@drawable/bg_border"
                 android:text="P060"
                 android:layout_width="60dp"

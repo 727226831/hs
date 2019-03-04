@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" >
 
-
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -56,6 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_cInvName"
+
                     style="@style/item_small"/>
                 <TextView
                     android:visibility="gone"

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.example.storescontrol.view.declaration.UnqualifiedListActivity.FunctionAdapter" />
+
+        <variable
+            name="adapter"
+            type="FunctionAdapter" />
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +18,7 @@
         layout="@layout/layout_title"/>
 
     <android.support.v7.widget.RecyclerView
-
+        app:adapter="@{adapter}"
         android:layout_above="@id/b_submit"
         android:layout_below="@id/l_title"
         android:id="@+id/rv_list"
@@ -19,3 +27,4 @@
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
+</layout>
