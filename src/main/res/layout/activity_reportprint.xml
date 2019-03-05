@@ -7,13 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.declaration.ReportprintActivity">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
 
 
     <LinearLayout
@@ -57,7 +51,7 @@
         style="@style/form_fontsize"
         android:background="@drawable/bg_border"
         android:text="生产日期"
-        android:layout_width="80dp" />
+        android:layout_width="100dp" />
     <TextView
         style="@style/form_fontsize"
         android:background="@drawable/bg_border"
@@ -76,363 +70,19 @@
         android:text="操作工"
         android:layout_width="match_parent" />
 </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:background="@drawable/bg_border"
+            android:id="@+id/rv_list1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/form_fontsize"
-                android:background="@drawable/bg_border"
-                android:text="P040"
-                android:layout_width="60dp"
-                android:layout_height="38dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/form_fontsize"
 
-                    android:background="@drawable/bg_border"
-                    android:text="上窗帘"
-                    android:layout_width="90dp"
-                  />
-                <TextView
-                    style="@style/form_fontsize"
-                    android:background="@drawable/bg_border"
-                    android:text="下窗帘"
-                    android:layout_width="90dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    android:layout_width="70dp"
-                    />
-                <TextView
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="70dp"
-                 />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    android:layout_width="80dp"
-                    />
-                <TextView
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="80dp"
-                     />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="60dp"
-                   />
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    android:layout_width="60dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="110dp"
-                   />
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    android:layout_width="110dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
 
-                    android:layout_width="match_parent"
-                   />
-                <TextView
-                    style="@style/form_fontsize"
-                    android:padding="@dimen/layout_margin"
-                    android:background="@drawable/bg_border"
-                    android:layout_width="match_parent"
-                     />
-            </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/form_fontsize"
 
-                android:background="@drawable/bg_border"
-                android:text="P050"
-                android:layout_width="60dp"
-              />
-
-                <TextView
-                    style="@style/form_fontsize"
-
-                    android:background="@drawable/bg_border"
-                    android:text="布窗总成"
-                    android:layout_width="90dp"
-                     />
-
-                <TextView
-
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="70dp"
-                     />
-
-
-                <TextView
-
-                    android:background="@drawable/bg_border"
-                    style="@style/form_fontsize"
-                    android:layout_width="80dp"
-                    />
-
-
-                <TextView
-                    style="@style/form_fontsize"
-
-                    android:background="@drawable/bg_border"
-                    android:layout_width="60dp"
-                     />
-
-
-                <TextView
-                    style="@style/form_fontsize"
-
-                    android:background="@drawable/bg_border"
-                    android:layout_width="110dp"
-                     />
-
-
-                <TextView
-                    style="@style/form_fontsize"
-
-                    android:background="@drawable/bg_border"
-                    android:layout_width="match_parent"
-                     />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/form_fontsize"
-                android:background="@drawable/bg_border"
-                android:text="P060"
-                android:layout_width="60dp"
-                 />
-
-            <TextView
-                style="@style/form_fontsize"
-
-
-                android:background="@drawable/bg_border"
-                android:text="密布板分总成"
-                android:layout_width="90dp"
-                />
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="70dp"
-                 />
-
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="80dp"
-                 />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="60dp"
-                 />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="110dp"
-                 />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="match_parent"
-               />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/form_fontsize"
-
-
-                android:background="@drawable/bg_border"
-                android:text="P070"
-                android:layout_width="60dp"
-                />
-
-            <TextView
-                style="@style/form_fontsize"
-
-
-                android:background="@drawable/bg_border"
-                android:text="密布板分总成"
-                android:layout_width="90dp"
-                />
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="70dp"
-                />
-
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="80dp"
-               />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="60dp"
-                />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="110dp"
-              />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="match_parent"
-                />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                style="@style/form_fontsize"
-
-
-                android:background="@drawable/bg_border"
-                android:text="P080"
-                android:layout_width="60dp"
-                />
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:text="面料总成"
-                android:layout_width="90dp"
-                />
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="70dp"
-               />
-
-
-            <TextView
-
-                android:background="@drawable/bg_border"
-                style="@style/form_fontsize"
-                android:layout_width="80dp"
-                />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="60dp"
-               />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="110dp"
-                />
-
-
-            <TextView
-                style="@style/form_fontsize"
-
-                android:background="@drawable/bg_border"
-                android:layout_width="match_parent"
-               />
-        </LinearLayout>
+      
         <LinearLayout
 
             android:orientation="horizontal"
@@ -462,107 +112,21 @@
                         android:text="物料批次号"
                         android:layout_width="60dp" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="面料卷"
-                        android:layout_width="150dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="171410101-01"
-                        android:layout_width="70dp" />
-                    <TextView
-                        style="@style/form_fontsize"
+             <android.support.v7.widget.RecyclerView
+                 android:background="@drawable/bg_border"
+                 android:id="@+id/rv_list2"
+                 android:layout_width="match_parent"
+                 android:layout_height="95dp">
 
-                        android:layout_width="80dp" />
-                    <TextView
-                        style="@style/form_fontsize"
+             </android.support.v7.widget.RecyclerView>
 
-                        android:layout_width="60dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/form_fontsize"
 
-                        android:layout_width="150dp" />
-                    <TextView
-                        style="@style/form_fontsize"
 
-                        android:layout_width="70dp" />
-                    <TextView
-                        style="@style/form_fontsize"
 
-                        android:layout_width="80dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="60dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="C型管"
-                        android:layout_width="150dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="171510501"
-                        android:layout_width="70dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="80dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="60dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="密底板"
-                        android:layout_width="150dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="171510401"
-                        android:layout_width="70dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="80dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="60dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="胶水"
-                        android:layout_width="150dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-                        android:text="171400801"
-                        android:layout_width="70dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="80dp" />
-                    <TextView
-                        style="@style/form_fontsize"
-
-                        android:layout_width="60dp" />
-                </LinearLayout>
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -582,6 +146,15 @@
                     android:text="备注："
                     />
             </LinearLayout>
+                <ImageView
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/iv_qrcode"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_border"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -595,7 +168,6 @@
         android:background="@color/blue"
         android:text="打印"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

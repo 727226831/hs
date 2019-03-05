@@ -7,28 +7,66 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.storescontrol.R;
+import com.example.storescontrol.Url.Request;
+import com.example.storescontrol.adapter.Completion1Adapter;
+import com.example.storescontrol.adapter.Completion2Adapter;
+import com.example.storescontrol.bean.Completion1Bean;
+import com.example.storescontrol.bean.MeterialBean;
+import com.example.storescontrol.bean.UnqualifiedBean;
+import com.example.storescontrol.databinding.ItemUnqualifiedBinding;
+import com.example.storescontrol.view.BaseActivity;
 import com.example.storescontrol.view.PrintActivity;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.qr285.sdk.OnPrinterListener;
 import com.qr285.sdk.PrinterPort;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-public class ReportprintActivity extends AppCompatActivity {
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ReportprintActivity extends BaseActivity {
+    String ccode="PGD190227001";
+
     private BluetoothAdapter mBluetoothAdapter = null;
     private PrinterPort printerPort;
     boolean isRegister=false;
     View viewPrint;
+    RecyclerView recyclerView1,recyclerView2;
+    List<Completion1Bean> completion1BeanList=new ArrayList<>();
+    List<MeterialBean> meterialBeanList=new ArrayList<>();
+    ImageView imageViewQRcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +84,113 @@ public class ReportprintActivity extends AppCompatActivity {
             }
         });
         viewPrint=findViewById(R.id.ll_form);
+        recyclerView1=findViewById(R.id.rv_list1);
+        recyclerView2=findViewById(R.id.rv_list2);
+        imageViewQRcode=findViewById(R.id.iv_qrcode);
+        getGetWGInfo();
+        getMeteriallist();
+
+
 
     }
+    private void createCode(String content) {
+
+        Log.i("content-->",content);
+        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+        try {
+            Bitmap bitmap = barcodeEncoder.encodeBitmap(content, BarcodeFormat.QR_CODE, 200, 200);
+            imageViewQRcode.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+    private void getGetWGInfo() {
+        JSONObject jsonObject=new JSONObject();
+        try {
+
+            jsonObject.put("methodname","GetWGInfo");
+            jsonObject.put("acccode",acccode);
+            jsonObject.put("ccode",ccode);
+            jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String obj=jsonObject.toString();
+        Log.i("json object",obj);
+
+        Call<ResponseBody> data = Request.getRequestbody(obj);
+        data.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    if(response.code()==200) {
+                        Gson gson = new Gson();
+                        JsonArray arry = new JsonParser().parse(response.body().string()).getAsJsonArray();
+                        for (JsonElement jsonElement : arry) {
+                            completion1BeanList.add(gson.fromJson(jsonElement, Completion1Bean.class));
+                        }
+                        Log.i("completion1BeanList",new Gson().toJson(completion1BeanList));
+                        recyclerView1.setLayoutManager(new LinearLayoutManager(ReportprintActivity.this));
+                        recyclerView1.addItemDecoration(new DividerItemDecoration(ReportprintActivity.this,DividerItemDecoration.VERTICAL));
+                        Completion1Adapter completion1Adapter=new Completion1Adapter(completion1BeanList);
+                        recyclerView1.setAdapter(completion1Adapter);
+                        createCode(getIntent().getStringExtra("cmocode")+"|"+ccode+"|"+completion1BeanList.get(completion1BeanList.size()-1).getCopname());
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
+            } });
+    }
+    private void getMeteriallist() {
+        JSONObject jsonObject=new JSONObject();
+        try {
+
+            jsonObject.put("methodname","GetBeiliao");
+            jsonObject.put("acccode","001");
+            jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String obj=jsonObject.toString();
+        Log.i("json object",obj);
+
+        Call<ResponseBody> data = Request.getRequestbody(obj);
+        data.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    if(response.code()==200) {
+                        Gson gson = new Gson();
+                        JsonArray arry = new JsonParser().parse(response.body().string()).getAsJsonArray();
+                        for (JsonElement jsonElement : arry) {
+                            meterialBeanList.add(gson.fromJson(jsonElement, MeterialBean.class));
+                        }
+
+
+                        recyclerView2.setLayoutManager(new LinearLayoutManager(ReportprintActivity.this));
+                        recyclerView2.addItemDecoration(new DividerItemDecoration(ReportprintActivity.this,DividerItemDecoration.VERTICAL));
+                        Completion2Adapter completion2Adapter=new Completion2Adapter(meterialBeanList);
+                        recyclerView2.setAdapter(completion2Adapter);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
+            } });
+    }
+
+
     public void printeData() {
         viewPrint.setDrawingCacheEnabled(true);
         viewPrint.buildDrawingCache();
@@ -195,5 +338,6 @@ public class ReportprintActivity extends AppCompatActivity {
         }
 
     }
+
 
 }
