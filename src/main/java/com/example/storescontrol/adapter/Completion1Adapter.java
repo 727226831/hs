@@ -3,6 +3,7 @@ package com.example.storescontrol.adapter;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class Completion1Adapter extends  RecyclerView.Adapter<Completion1Adapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         ItemCompletion1Binding binding= DataBindingUtil.
-                inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_completion1,viewGroup,false);
+                inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_completion1,null,false);
 
         return new RecyclerViewHolder(binding.getRoot());
     }
@@ -43,6 +44,7 @@ public class Completion1Adapter extends  RecyclerView.Adapter<Completion1Adapter
 
     @Override
     public int getItemCount() {
+
         return mDatas.size();
     }
     class  RecyclerViewHolder extends RecyclerView.ViewHolder{

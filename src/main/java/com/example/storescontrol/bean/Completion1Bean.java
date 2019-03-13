@@ -14,6 +14,16 @@ public class Completion1Bean {
         private String ctuopan;
         private String cuser;
 
+    public String getcNextOp() {
+        return cNextOp;
+    }
+
+    public void setcNextOp(String cNextOp) {
+        this.cNextOp = cNextOp;
+    }
+
+    private String cNextOp;
+
     public String getDdate() {
         return ddate;
     }

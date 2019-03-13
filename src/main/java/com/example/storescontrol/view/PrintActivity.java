@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -40,19 +41,22 @@ public class PrintActivity extends BaseActivity {
 
     List<String> list;
     ArrivalHeadBean arrivalHeadBean;
-    String cvenabbname,ddate;
+    String cvenabbname,ddate,cInvStd,cInvCName,gys;
     double overplus=-1;
     boolean isRegister=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=DataBindingUtil.setContentView(this,R.layout.activity_print);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Untils.initTitle("打印",this);
        viewtag=binding.getRoot().findViewById(R.id.rl_tag);
         code=getIntent().getStringExtra("code");
         cvenabbname=getIntent().getStringExtra("cvenabbname");
         ddate=getIntent().getStringExtra("ddate");
         overplus=getIntent().getDoubleExtra("overplus",-1);
+        cInvCName=getIntent().getStringExtra("cInvCName");
+        cInvStd=getIntent().getStringExtra("cInvStd");
 
 
         if(!code.isEmpty()){
@@ -73,16 +77,7 @@ public class PrintActivity extends BaseActivity {
                printeData();
             }
         });
-        binding.bNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initView(overplus+"");
-                if(printerPort==null) {
-                    initbluetooth();
-                }
-                printeData();
-            }
-        });
+
 
 
 
@@ -94,8 +89,11 @@ public class PrintActivity extends BaseActivity {
         binding.etCinvcode.setText(list.get(0));
         binding.etCbatch.setText(list.get(1));
         binding.etIquantity.setText(iquantity+"");
-        binding.etDdate.setText(ddate);
+
         binding.etCvenabbname.setText(cvenabbname);
+        binding.etCInvCName.setText(cInvCName);
+        binding.etCInvStd.setText(cInvStd);
+        binding.etGys.setText(getIntent().getStringExtra("gys"));
         list.set(2,iquantity+"");
         list.set(6,UUID.randomUUID().toString());
         String codenew=list.toString().replace(",","$");
@@ -209,21 +207,37 @@ public class PrintActivity extends BaseActivity {
            }
 
     }
+
     public void printeData() {
         viewtag.setDrawingCacheEnabled(true);
         viewtag.buildDrawingCache();
-        Bitmap bitmap=Bitmap.createBitmap(viewtag.getDrawingCache());
+        final Bitmap bitmap=Bitmap.createBitmap(viewtag.getDrawingCache());
         viewtag.destroyDrawingCache();
         Matrix matrix = new Matrix();
-        matrix.postScale(0.4f, 0.4f);
-        Bitmap bitmapnew=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+
+        matrix.setRotate(90);
+        matrix.postScale(0.7f, 0.7f);
+        Bitmap bitmapnew=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,false);
        final Bitmap bmp = bitmapnew;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 printerPort.setDensity(0x02, 10);
-                printerPort.printBitmap(bmp);
+                printerPort.setPaperType(0x02,0x20);
+
+                if(binding.etPage.getText().toString().isEmpty()){
+                    printerPort.printBitmap(bmp);
+                    printerPort.printerLocation(0x20,0);
+                }else {
+                    for (int i = 0; i < Integer.parseInt(binding.etPage.getText().toString()); i++) {
+                        printerPort.printBitmap(bmp);
+                        printerPort.printerLocation(0x20,0);
+                    }
+                }
+
+
+
               //  printerPort.adjustPosition(0, 240);
                 printerPort.printerLocation(0x20,10);
                 if (printerPort.getSendResult(10000).equals("OK")) {

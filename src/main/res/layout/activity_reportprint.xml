@@ -21,10 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 <TextView
+    android:id="@+id/tv_cinvname"
     android:padding="@dimen/layout_margin"
     style="@style/form_fontsize"
     android:background="@drawable/bg_border"
-    android:text="AS23 项目面料总成生产技术"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
 <LinearLayout

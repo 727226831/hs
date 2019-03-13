@@ -3,9 +3,9 @@ package com.example.storescontrol.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.example.storescontrol.R;
 import com.example.storescontrol.Url.Request;
-import com.example.storescontrol.bean.ArrivalHeadBean;
 import com.example.storescontrol.Url.iUrl;
+import com.example.storescontrol.bean.ArrivalHeadBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -72,7 +72,22 @@ public class PutListActivity extends BaseActivity {
         });
 
         SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
-        String data= sharedPreferences.getString("putlist","");
+        String data="";
+        if(getIntent().getStringExtra("menuname").equals("采购入库")) {
+             data= sharedPreferences.getString("CreatePuStoreInlist","");
+
+        }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")) {
+             data= sharedPreferences.getString("CreateCheckdetailslist","");
+            Log.i("data-->",data);
+        }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
+             data= sharedPreferences.getString("CreateProductStoreInlist","");
+
+        }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+            data= sharedPreferences.getString("UpdatePositionTRlist","");
+        }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+            data= sharedPreferences.getString("CreatePuArrivalInlist","");
+        }
+
         if (!data.equals("")){
 
             try {
@@ -92,7 +107,7 @@ public class PutListActivity extends BaseActivity {
 
 
 
-        functionAdapter=new PutListActivity.FunctionAdapter(arrivalHeadBeans);
+        functionAdapter=new FunctionAdapter(arrivalHeadBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(functionAdapter);
@@ -110,8 +125,18 @@ public class PutListActivity extends BaseActivity {
         dialog.show();
         JSONObject jsonObject=new JSONObject();
         try {
-
-            jsonObject.put("methodname","CreatePuStoreIn");
+            if(getIntent().getStringExtra("menuname").equals("采购入库")) {
+                jsonObject.put("methodname","CreatePuStoreIn");
+            }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")) {
+                jsonObject.put("methodname","CreateCheckdetails");
+            }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
+                jsonObject.put("methodname", "CreateProductStoreIn");
+            }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+                jsonObject.put("methodname", "UpdatePositionTR");
+                jsonObject.put("inposition", arrivalHeadBeans.get(0).getInposition());
+            }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+                jsonObject.put("methodname", "CreatePuArrivalIn");
+            }
             jsonObject.put("usercode",usercode);
             jsonObject.put("acccode",acccode);
             JSONArray jsonArray=new JSONArray();
@@ -151,8 +176,25 @@ public class PutListActivity extends BaseActivity {
                            arrivalHeadBeans.clear();
                            functionAdapter.notifyDataSetChanged();
                            SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
-                           sharedPreferences.edit().putString("putlist","").commit();
-                           sharedPreferences.edit().putString("putscan","").commit();
+                           if(getIntent().getStringExtra("menuname").equals("采购入库")) {
+                               sharedPreferences.edit().putString("CreatePuStoreInlist","").commit();
+                               sharedPreferences.edit().putString("CreatePuStoreInscan","").commit();
+                           }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")) {
+
+                               sharedPreferences.edit().putString("CreateCheckdetailslist","").commit();
+                               sharedPreferences.edit().putString("CreateCheckdetailsscan","").commit();
+                           }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
+                               sharedPreferences.edit().putString("CreateProductStoreInlist","").commit();
+                               sharedPreferences.edit().putString("CreateProductStoreInscan","").commit();
+                           }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+                               sharedPreferences.edit().putString("UpdatePositionTRlist","").commit();
+                               sharedPreferences.edit().putString("UpdatePositionTRscan","").commit();
+                           }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+
+                               sharedPreferences.edit().putString("CreatePuArrivalInlist","").commit();
+                               sharedPreferences.edit().putString("CreatePuArrivalInscan","").commit();
+                           }
+
 
 
                        }
@@ -176,13 +218,13 @@ public class PutListActivity extends BaseActivity {
             } });
     }
 
-    class FunctionAdapter extends RecyclerView.Adapter<PutListActivity.FunctionAdapter.VH>{
+    class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.VH>{
 
         @NonNull
         @Override
-        public PutListActivity.FunctionAdapter.VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             View v=getLayoutInflater().inflate(R.layout.item_input,viewGroup,false);
-            return new PutListActivity.FunctionAdapter.VH(v);
+            return new VH(v);
 
 
         }
@@ -193,7 +235,7 @@ public class PutListActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull  PutListActivity.FunctionAdapter.VH vh,final int i) {
+        public void onBindViewHolder(@NonNull  VH vh,final int i) {
             vh.textViewnumber.setText(i+1+"");
             vh.textViewccode.setText(arrivalHeadBeans.get(i).getCcode());
             vh.textViewline.setText(arrivalHeadBeans.get(i).getIrowno());
@@ -215,21 +257,42 @@ public class PutListActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
                             //delete sharedPreferences->scan item
-                            String stringscandata=sharedPreferences.getString("putscan","");
+                            String stringscandata="";
+                            if(getIntent().getStringExtra("menuname").equals("采购入库")) {
+                               stringscandata=sharedPreferences.getString("CreatePuStoreInscan","");
+                            }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")) {
+                              stringscandata=sharedPreferences.getString("CreateCheckdetailsscan","");
+                            }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
+                               stringscandata=sharedPreferences.getString("CreateProductStoreInscan","");
+                            }
+
                             List<String> listcode = new ArrayList<>(Arrays.asList(stringscandata));
                             for (int j = 0; j <listcode.size() ; j++) {
                                 if(listcode.get(j).contains(arrivalHeadBeans.get(i).getIrowno())){
                                     listcode.remove(j);
                                 }
                             }
-                            sharedPreferences.edit().putString("putscan",listcode.toString()).commit();
-
                             arrivalHeadBeans.remove(i);
                             functionAdapter.notifyDataSetChanged();
                             textViewtotal.setText("总计:"+arrivalHeadBeans.size()+"条");
                             //delete sharedPreferences->putlist item
                             String strings= new Gson().toJson(arrivalHeadBeans);
-                            sharedPreferences.edit().putString("putlist",strings).commit();
+                             Log.i("list-->",strings);
+                            if(getIntent().getStringExtra("menuname").equals("采购入库")) {
+
+                                sharedPreferences.edit().putString("CreatePuStoreInlist",strings).commit();
+                                sharedPreferences.edit().putString("CreatePuStoreInscan",listcode.toString()).commit();
+                            }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")) {
+
+                                sharedPreferences.edit().putString("CreateCheckdetailslist",strings).commit();
+                                sharedPreferences.edit().putString("CreateCheckdetailsscan",listcode.toString()).commit();
+                            }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
+
+                                sharedPreferences.edit().putString("CreateProductStoreInscanlist",strings).commit();
+                                sharedPreferences.edit().putString("CreateProductStoreInscanscan",listcode.toString()).commit();
+                            }
+
+
 
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {

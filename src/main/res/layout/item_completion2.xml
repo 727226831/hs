@@ -22,11 +22,11 @@
             android:layout_width="70dp" />
         <TextView
             style="@style/form_fontsize"
-            android:text="@{data.cvenbatch}"
+            android:text="@{data.cbatch}"
             android:layout_width="80dp" />
         <TextView
             style="@style/form_fontsize"
-
+            android:text="@{data.cvenbatch}"
             android:layout_width="60dp" />
     </LinearLayout>
 </LinearLayout>

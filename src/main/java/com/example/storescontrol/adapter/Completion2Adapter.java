@@ -20,7 +20,7 @@ public class Completion2Adapter extends  RecyclerView.Adapter<Completion2Adapter
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         ItemCompletion2Binding binding= DataBindingUtil.
-                inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_completion2,viewGroup,false);
+                inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.item_completion2,null,false);
 
         return new RecyclerViewHolder(binding.getRoot());
     }

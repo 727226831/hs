@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -70,8 +71,6 @@ public class MaterialActivity extends BaseActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-
-
                     getMoInventory(binding.etCwhcode.getText().toString());
                 }
 
@@ -85,32 +84,44 @@ public class MaterialActivity extends BaseActivity {
                   openScan();
             }
         });
-        binding.bSubmit.setOnClickListener(new View.OnClickListener() {
+        binding.bMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(bean==null){
+                    return;
+                }
+
                 for (int i = 0; i <meterialBeanList.size() ; i++) {
 
                     if(bean.getCinvcode().equals(meterialBeanList.get(i).getCinvcode())){
+                        double a= Double.parseDouble(meterialBeanList.get(i).getMoqty());
 
+                        if(Double.parseDouble(binding.etIqty.getText().toString())>a){
+                            Toast.makeText(MaterialActivity.this,"投入数量不能大于应领数量!",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         bean.setCposcode(cposcode);
                         meterialBeanList.set(i,bean);
                         functionAdapter=new FunctionAdapter(meterialBeanList);
                         binding.rvList.setAdapter(functionAdapter);
                         binding.etCwhcode.setText("");
-
+                        Toast.makeText(MaterialActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
                         SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
                         sharedPreferences.edit().putString("Meteriallist",new Gson().toJson(meterialBeanList)).commit();
 
                     }
                 }
-                if(isSuccess){
-                    Toast.makeText(MaterialActivity.this,"更新成功",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(MaterialActivity.this,"更新失败",Toast.LENGTH_SHORT).show();
-                }
+
 
             }
         });
+        binding.bSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 insertMateria();
+            }
+        });
+        cposcode="S010103";
         binding.rgCposcode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -125,6 +136,52 @@ public class MaterialActivity extends BaseActivity {
             }
         });
 
+    }
+    private void insertMateria() {
+        JSONObject jsonObject=new JSONObject();
+        try {
+
+            jsonObject.put("methodname","InsertBeiliao");
+            jsonObject.put("acccode",acccode);
+            jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+            jsonObject.put("copname",getIntent().getStringExtra("copname"));
+            jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
+            jsonObject.put("cuser",getIntent().getStringExtra("cuser"));
+            SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
+            if(sharedPreferences.getString("Meteriallist","").equals("")){
+                jsonObject.put("datatetails","");
+            }else {
+                JSONArray jsonArray = new JSONArray(sharedPreferences.getString("Meteriallist", ""));
+                jsonObject.put("datatetails", jsonArray);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String obj=jsonObject.toString();
+        Log.i("json object",obj);
+
+        Call<ResponseBody> data =Request.getRequestbody(obj);
+        data.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    if(response.code()==200) {
+                        Toast.makeText(MaterialActivity.this,"投料成功",Toast.LENGTH_LONG).show();
+
+
+                    }else  if(response.code()==500){
+                        Toast.makeText(MaterialActivity.this,"投料人未填写！",Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
+            } });
     }
 
     @Override
@@ -163,6 +220,7 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("methodname","GetBeiliao");
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -200,7 +258,7 @@ public class MaterialActivity extends BaseActivity {
     }
 
     private void getMoInventory(String code) {
-        list=Untils.parseCode(code,1);
+        list=Untils.parseCode(code,0);
         Log.i("list-->",list.toString());
 
 
@@ -214,8 +272,8 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("methodname","GetMoInventory");
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
-            jsonObject.put("cinvcode",list.get(1));
-            jsonObject.put("cbatch",list.get(2));
+            jsonObject.put("cinvcode",list.get(0));
+            jsonObject.put("cbatch",list.get(1));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -231,13 +289,13 @@ public class MaterialActivity extends BaseActivity {
                     if(response.code()==200) {
                         JSONArray jsonArray=new JSONArray(response.body().string());
                         bean=new Gson().fromJson(jsonArray.getJSONObject(0).toString(),MeterialBean.class);
-                        bean.setCposcode("S010103");
-                        bean.setIqty(list.get(4));
-                        bean.setCbatch(list.get(2));
+                        bean.setCposcode(cposcode);
+                        bean.setIqty(list.get(2));
+                        bean.setCbatch(list.get(1));
                         binding.tvCinvname.setText(bean.getCinvname());
                         binding.tvCinvcode.setText(bean.getCinvcode());
                         binding.tvCInvStd.setText(bean.getCinvstd());
-                        binding.etIqty.setText(list.get(4));
+                        binding.etIqty.setText(list.get(2));
                         binding.tvMoqty.setText(bean.getMoqty());
                         binding.tvCvenbatch.setText(bean.getCvenbatch());
                         binding.tvCbatch.setText(bean.getCbatch());

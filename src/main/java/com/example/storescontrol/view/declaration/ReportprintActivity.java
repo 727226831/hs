@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.storescontrol.R;
@@ -57,7 +58,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReportprintActivity extends BaseActivity {
-    String ccode="PGD190227001";
+
 
     private BluetoothAdapter mBluetoothAdapter = null;
     private PrinterPort printerPort;
@@ -67,6 +68,7 @@ public class ReportprintActivity extends BaseActivity {
     List<Completion1Bean> completion1BeanList=new ArrayList<>();
     List<MeterialBean> meterialBeanList=new ArrayList<>();
     ImageView imageViewQRcode;
+    TextView textViewcinvname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class ReportprintActivity extends BaseActivity {
         recyclerView1=findViewById(R.id.rv_list1);
         recyclerView2=findViewById(R.id.rv_list2);
         imageViewQRcode=findViewById(R.id.iv_qrcode);
+        textViewcinvname=findViewById(R.id.tv_cinvname);
         getGetWGInfo();
         getMeteriallist();
 
@@ -95,7 +98,7 @@ public class ReportprintActivity extends BaseActivity {
     }
     private void createCode(String content) {
 
-        Log.i("content-->",content);
+
         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
         try {
             Bitmap bitmap = barcodeEncoder.encodeBitmap(content, BarcodeFormat.QR_CODE, 200, 200);
@@ -110,7 +113,7 @@ public class ReportprintActivity extends BaseActivity {
 
             jsonObject.put("methodname","GetWGInfo");
             jsonObject.put("acccode",acccode);
-            jsonObject.put("ccode",ccode);
+            jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -130,12 +133,13 @@ public class ReportprintActivity extends BaseActivity {
                         for (JsonElement jsonElement : arry) {
                             completion1BeanList.add(gson.fromJson(jsonElement, Completion1Bean.class));
                         }
-                        Log.i("completion1BeanList",new Gson().toJson(completion1BeanList));
+                        Log.i("list sizie",completion1BeanList.size()+"/");
+                        textViewcinvname.setText(completion1BeanList.get(completion1BeanList.size()-1).getCinvname());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(ReportprintActivity.this));
                         recyclerView1.addItemDecoration(new DividerItemDecoration(ReportprintActivity.this,DividerItemDecoration.VERTICAL));
                         Completion1Adapter completion1Adapter=new Completion1Adapter(completion1BeanList);
                         recyclerView1.setAdapter(completion1Adapter);
-                        createCode(getIntent().getStringExtra("cmocode")+"|"+ccode+"|"+completion1BeanList.get(completion1BeanList.size()-1).getCopname());
+                        createCode(getIntent().getStringExtra("cmocode")+"|"+getIntent().getStringExtra("ccode")+"|"+completion1BeanList.get(completion1BeanList.size()-1).getcNextOp());
 
                     }
                 } catch (Exception e) {
@@ -152,7 +156,7 @@ public class ReportprintActivity extends BaseActivity {
         try {
 
             jsonObject.put("methodname","GetBeiliao");
-            jsonObject.put("acccode","001");
+            jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
         } catch (JSONException e) {
             e.printStackTrace();

@@ -100,7 +100,17 @@
                     android:id="@+id/et_cusercode"
                     android:layout_marginRight="@dimen/layout_margin"
                     android:layout_gravity="center_vertical"
-                    style="@style/edittext"/>
+                    style="@style/edittext"
+                    android:layout_width="200dp"
+                    />
+                <Button
+                    android:id="@+id/b_user"
+                    android:layout_margin="10dp"
+                    android:background="@color/blue"
+                    android:textColor="@android:color/white"
+                    android:text="确定"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -131,6 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:drawableRight="@mipmap/ic_choose"
                     android:layout_margin="@dimen/layout_margin"
                     android:text="完工合格"
                     style="@style/item_normal"
@@ -152,6 +163,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/et_ihgqty"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
@@ -181,6 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+
                     android:drawableRight="@mipmap/ic_choose"
                     android:layout_margin="@dimen/layout_margin"
                     android:text="完工不合格"
@@ -203,6 +216,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/et_ibhgqty"
                         android:layout_marginRight="@dimen/layout_margin"
                         android:layout_gravity="center_vertical"
@@ -239,7 +253,17 @@
                     android:id="@+id/et_cmemo2"
                     android:layout_marginRight="@dimen/layout_margin"
                     android:layout_gravity="center_vertical"
-                    style="@style/edittext" />
+                    style="@style/edittext"
+                    android:layout_width="200dp"
+                    />
+                <Button
+                    android:id="@+id/b_des"
+                    android:layout_margin="10dp"
+                    android:background="@color/blue"
+                    android:textColor="@android:color/white"
+                    android:text="确定"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
             </LinearLayout>
             <LinearLayout style="@style/line" />
 

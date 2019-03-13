@@ -1,6 +1,7 @@
 package com.example.storescontrol.view.declaration;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -57,6 +59,7 @@ public class ReportActivity extends BaseActivity {
     ActivityReportBinding binding;
     String  stringScan;
     List<String> list;
+    String COpdesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +87,26 @@ public class ReportActivity extends BaseActivity {
 
               }
           });
+          binding.etCmemo2.addTextChangedListener(new TextWatcher() {
+              @Override
+              public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+              }
+
+              @Override
+              public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+              }
+
+              @Override
+              public void afterTextChanged(Editable s) {
+                  if(handler.hasMessages(1)){
+                      handler.removeMessages(1);
+                  }
+                  handler.sendEmptyMessageDelayed(1,1000);
+
+              }
+          });
           binding.etCode.setOnKeyListener(new View.OnKeyListener() {
               @Override
               public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -101,6 +124,8 @@ public class ReportActivity extends BaseActivity {
           binding.bMaterial.setOnClickListener(onClickListener);
           binding.ivScan.setOnClickListener(onClickListener);
           binding.llUnqualified.setOnClickListener(onClickListener);
+          binding.bUser.setOnClickListener(onClickListener);
+          binding.bDes.setOnClickListener(onClickListener);
 
 
     }
@@ -111,13 +136,16 @@ public class ReportActivity extends BaseActivity {
                   case R.id.b_submit:
 
                       if(list!=null) {
-                          insertMateria();
+                          createWG();
                       }
                       break;
                   case R.id.b_material:
                       if(list!=null) {
                           Intent intent = new Intent(ReportActivity.this, MaterialActivity.class);
                           intent.putExtra("cmocode", list.get(0));
+                          intent.putExtra("copname",COpdesc);
+                          intent.putExtra("cuser",binding.etCusercode.getText().toString());
+                          intent.putExtra("ccode",list.get(1));
                           startActivity(intent);
                       }
                       break;
@@ -131,6 +159,18 @@ public class ReportActivity extends BaseActivity {
                       startActivity(intent);
 
                       }
+                      break;
+                  case R.id.b_user:
+                      if(!binding.etCusercode.getText().toString().isEmpty()){
+                          getMesUserName();
+                      }
+
+                      break;
+                  case  R.id.b_des:
+                      if(!binding.etCmemo2.getText().toString().isEmpty()){
+                          getDesName();
+                      }
+
                       break;
 
               }
@@ -165,21 +205,14 @@ public class ReportActivity extends BaseActivity {
         }
     }
 
-    private void insertMateria() {
+
+    private void getMesUserName() {
         JSONObject jsonObject=new JSONObject();
         try {
 
-            jsonObject.put("methodname","InsertBeiliao");
-            jsonObject.put("acccode",acccode);
-            jsonObject.put("cmocode",list.get(0));
-            jsonObject.put("copname",list.get(2));
-            jsonObject.put("ccode",list.get(1));
-            jsonObject.put("cuser",binding.etCusercode.getText());
-            SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
-            JSONArray jsonArray=new JSONArray(sharedPreferences.getString("Meteriallist",""));
-            jsonObject.put("datatetails",jsonArray);
+            jsonObject.put("methodname","GetMesUserName");
 
-
+            jsonObject.put("cusercode",binding.etCusercode.getText().toString().substring(0,binding.etCusercode.getText().toString().length()-1));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -194,9 +227,38 @@ public class ReportActivity extends BaseActivity {
 
                 try {
                     if(response.code()==200) {
-                        Toast.makeText(ReportActivity.this,"投料成功",Toast.LENGTH_LONG).show();
-                        createWG();
+                     binding.etCusercode.setText(response.body().string());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
 
+            } });
+    }
+    private void getDesName() {
+        JSONObject jsonObject=new JSONObject();
+        try {
+
+            jsonObject.put("methodname","GetDesName");
+            jsonObject.put("ccode",binding.etCmemo2.getText().toString().substring(0,binding.etCmemo2.getText().length()-1));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String obj=jsonObject.toString();
+        Log.i("json object",obj);
+
+        Call<ResponseBody> data =Request.getRequestbody(obj);
+        data.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    if(response.code()==200) {
+                        binding.etCmemo2.setText(response.body().string());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -214,7 +276,7 @@ public class ReportActivity extends BaseActivity {
         Log.i("list-->",list.toString());
         stringScan=binding.etCode.getText().toString();
 
-        if(list.isEmpty()){
+        if(list.isEmpty() || list.size()<3){
             return;
         }
 
@@ -225,7 +287,7 @@ public class ReportActivity extends BaseActivity {
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",list.get(0));
             jsonObject.put("ccode",list.get(1));
-            jsonObject.put("copname",list.get(2));
+            jsonObject.put("copcode",list.get(2));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -243,6 +305,7 @@ public class ReportActivity extends BaseActivity {
                         MoInfoBean bean=new Gson().fromJson(jsonArray.getJSONObject(0).toString(),MoInfoBean.class);
                         binding.tvCmocode.setText(bean.getCmocode());
                         binding.tvCOpdesc.setText(bean.getCOpdesc());
+                        COpdesc=bean.getCOpdesc();
                         binding.tvImoqty.setText(bean.getImoqty()+"");
                         binding.tvCInvName.setText(bean.getCInvName());
 
@@ -266,7 +329,7 @@ public class ReportActivity extends BaseActivity {
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",list.get(0));
             jsonObject.put("ccode",list.get(1));
-            jsonObject.put("copname",list.get(2));
+            jsonObject.put("copname",COpdesc);
             jsonObject.put("copcode",list.get(2));
             jsonObject.put("ihgqty",binding.etIhgqty.getText());
             jsonObject.put("ibhgqty",binding.etIbhgqty.getText());
@@ -292,7 +355,23 @@ public class ReportActivity extends BaseActivity {
                         JSONObject jsonObjectresponse=new JSONObject(response.body().string());
                         Toast.makeText(ReportActivity.this,
                                 jsonObjectresponse.getString("ResultMessage"),Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ReportActivity.this,ReportprintActivity.class));
+                        new AlertDialog.Builder(ReportActivity.this).setMessage("是否打印?")
+                                .setNegativeButton("需要", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent=new Intent(ReportActivity.this,ReportprintActivity.class);
+                                        intent.putExtra("cmocode", list.get(0));
+                                        intent.putExtra("ccode",list.get(1));
+                                        intent.putExtra("copname",list.get(2));
+                                        startActivity(intent);
+                                    }
+                                }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+
 
                     }
                 } catch (Exception e) {
@@ -309,11 +388,21 @@ public class ReportActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    binding.etCusercode.setText(binding.etCusercode.getText().toString()+",");
+                    handler.removeMessages(0);
+                    binding.etCusercode.requestFocus();
+                    binding.etCusercode.setSelection(binding.etCusercode.getText().length());
+                    break;
+                case 1:
+                    binding.etCmemo2.setText(binding.etCmemo2.getText().toString()+",");
+                    handler.removeMessages(1);
+                    binding.etCmemo2.requestFocus();
+                    binding.etCmemo2.setSelection(binding.etCmemo2.getText().length());
+                    break;
+            }
 
-            binding.etCusercode.setText(binding.etCusercode.getText().toString()+",");
-            handler.removeMessages(0);
-            binding.etCusercode.requestFocus();
-            binding.etCusercode.setSelection(binding.etCusercode.getText().length());
 
         }
     };

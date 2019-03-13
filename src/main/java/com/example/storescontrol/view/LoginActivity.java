@@ -115,7 +115,9 @@ public class LoginActivity extends BaseActivity {
                                         editor.putString("userinfo",new Gson().toJson(resultBean));
                                         editor.commit();
                                         if(!resultBean.getVersionNumber().equals(BuildConfig.VERSION_NAME)){
+                                            Log.i("download",Request.URL+"/upgrade/MMS_"+resultBean.getVersionNumber()+".apk");
                                             downloadByWeb(LoginActivity.this,Request.URL+"/upgrade/MMS_"+resultBean.getVersionNumber()+".apk");
+
                                         }else {
                                             acccode=resultBean.getAcccode();
                                             usercode=resultBean.getUsercode();

@@ -53,6 +53,20 @@ public class ArrivalHeadBean implements Parcelable {
     private  String cbatch;
     private  String iquantity;
 
+    public String getInposition() {
+        return inposition;
+    }
+
+    public void setInposition(String inposition) {
+        this.inposition = inposition;
+    }
+
+    public static Creator<ArrivalHeadBean> getCREATOR() {
+        return CREATOR;
+    }
+
+    private  String inposition;
+
     public String getImageid() {
         return imageid;
     }
@@ -430,6 +444,7 @@ public class ArrivalHeadBean implements Parcelable {
         dest.writeString(this.material);
         dest.writeString(this.cbatch);
         dest.writeString(this.iquantity);
+        dest.writeString(this.inposition);
         dest.writeString(this.imageid);
     }
 
@@ -466,6 +481,7 @@ public class ArrivalHeadBean implements Parcelable {
         this.material = in.readString();
         this.cbatch = in.readString();
         this.iquantity = in.readString();
+        this.inposition = in.readString();
         this.imageid = in.readString();
     }
 

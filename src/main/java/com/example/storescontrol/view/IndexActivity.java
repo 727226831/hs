@@ -115,6 +115,12 @@ public class IndexActivity extends BaseActivity {
                 drawableLeft = IndexActivity.this.getResources().getDrawable(R.mipmap.ic_search);
             }else if(userinfoBean.getData().get(i).getMenuname().contains("填报")){
                 drawableLeft = IndexActivity.this.getResources().getDrawable(R.mipmap.ic_dbrk);
+            }else if(userinfoBean.getData().get(i).getMenuname().contains("到货")){
+                drawableLeft = IndexActivity.this.getResources().getDrawable(R.mipmap.ic_input);
+            }else if(userinfoBean.getData().get(i).getMenuname().contains("调整")){
+                drawableLeft = IndexActivity.this.getResources().getDrawable(R.mipmap.ic_input);
+            }else {
+                drawableLeft = IndexActivity.this.getResources().getDrawable(R.mipmap.ic_input);
             }
             vh.funcationButton.setCompoundDrawablesWithIntrinsicBounds(null,
                     drawableLeft, null, null);
