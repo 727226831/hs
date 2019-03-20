@@ -21,6 +21,8 @@ public class BaseActivity extends AppCompatActivity {
     public static   String acccode,usercode;
     public  AlertDialog dialog;
     public  SharedPreferences sharedPreferences;
+    public static  int qualified=0;
+
 
 
     @Override

@@ -134,6 +134,9 @@ public class LoginActivity extends BaseActivity {
                                     Toast.makeText(LoginActivity.this,"服务器内部错误。",Toast.LENGTH_LONG).show();
 
                                     break;
+                                case 404:
+                                    Toast.makeText(LoginActivity.this,"请求的页面不存在或已被删除！",Toast.LENGTH_LONG).show();
+                                    break;
                             }
 
                         } catch (Exception e) {

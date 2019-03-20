@@ -102,8 +102,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
             binding.bSearch.setVisibility(View.VISIBLE);
             binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
-        }else  if(getIntent().getStringExtra("menuname").equals("采购入库")||
-                getIntent().getStringExtra("menuname").equals("采购到货")){
+        }else  if(getIntent().getStringExtra("menuname").equals("采购入库")){
             binding.lCvenabbname.setVisibility(View.VISIBLE);
             binding.lBatch.setVisibility(View.VISIBLE);
             binding.bSearch.setVisibility(View.VISIBLE);
@@ -116,7 +115,21 @@ public class ProductionwarehousingActivity extends BaseActivity {
             binding.bSearch.setVisibility(View.VISIBLE);
             binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
-        } else {
+        }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+            binding.lCvenabbname.setVisibility(View.GONE);
+            binding.lBatch.setVisibility(View.VISIBLE);
+            binding.bSearch.setVisibility(View.VISIBLE);
+            binding.tvTotal.setVisibility(View.VISIBLE);
+            binding.rlUpdate.setVisibility(View.VISIBLE);
+        }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+            binding.lCvenabbname.setVisibility(View.VISIBLE);
+            binding.lBatch.setVisibility(View.VISIBLE);
+            binding.bSearch.setVisibility(View.VISIBLE);
+            binding.tvTotal.setVisibility(View.VISIBLE);
+            binding.rlUpdate.setVisibility(View.GONE);
+            binding.tvCcodekey.setText("采购订单号：");
+        }
+        else {
 
             binding.lCvenabbname.setVisibility(View.VISIBLE);
             binding.lBatch.setVisibility(View.GONE);
@@ -229,6 +242,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             }else {
                                 binding.etUpdatecwhcode.setText(code);
                                 getCwhcode(1);
+
                             }
                             break;
 
@@ -275,6 +289,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
                             if(list.size()>3) {
                                 ccode = list.get(4);
+                                binding.tvCvenbatch.setText("供应商批次："+list.get(7));
                             }
                             if(ccode !=null) {
                                 getArrivalHeadBycode(ccode);
@@ -328,6 +343,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             arrivalHeadBean.setIquantity(list.get(2));
                             arrivalHeadBean.setIrowno(list.get(5));
                             arrivalHeadBean.setImageid(imageid);
+                            arrivalHeadBean.setCvenbatch(list.get(7));
 
                             arrivalHeadBean.setCwhcode(cwhcode);
                             if(file!=null) {
@@ -555,8 +571,11 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
         if(!isCheck) {
             if (arrivalHeadBean.getCwhcode() == null) {
-                Toast.makeText(ProductionwarehousingActivity.this, "仓库不能为空", Toast.LENGTH_LONG).show();
-                return;
+                if(!getIntent().getStringExtra("menuname").equals("采购到货")){
+                    Toast.makeText(ProductionwarehousingActivity.this, "仓库不能为空", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
             }
         }
 
@@ -916,6 +935,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                                     binding.etCwhcode.setText(binding.etCwhcode.getText().toString()+"/仓库"+object.getString("cwhcode"));
                                     break;
                                 case 1:
+                                    updatecposition=binding.etUpdatecwhcode.getText().toString();
                                     binding.etUpdatecwhcode.setText(binding.etUpdatecwhcode.getText().toString()+"/仓库"+object.getString("cwhcode"));
 
                                     break;

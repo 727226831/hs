@@ -33,8 +33,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.RequestBody;
@@ -49,7 +52,7 @@ public class PutListActivity extends BaseActivity {
     Button buttonsubmit;
     private ImageView imageViewreturn;
     TextView textViewtitle,textViewtotal;
-    ArrayList<ArrivalHeadBean> arrivalHeadBeans=new ArrayList<>();
+    List<ArrivalHeadBean> arrivalHeadBeans=new ArrayList<>();
 
 
     @Override
@@ -133,12 +136,16 @@ public class PutListActivity extends BaseActivity {
                 jsonObject.put("methodname", "CreateProductStoreIn");
             }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
                 jsonObject.put("methodname", "UpdatePositionTR");
-                jsonObject.put("inposition", arrivalHeadBeans.get(0).getInposition());
+
+
             }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
                 jsonObject.put("methodname", "CreatePuArrivalIn");
             }
             jsonObject.put("usercode",usercode);
             jsonObject.put("acccode",acccode);
+            Date curDate =  new Date(System.currentTimeMillis());
+            SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd");
+            jsonObject.put("ddate",formatter.format(curDate));
             JSONArray jsonArray=new JSONArray();
             for (int i = 0; i <arrivalHeadBeans.size() ; i++) {
                 JSONObject object=new JSONObject();
@@ -150,19 +157,20 @@ public class PutListActivity extends BaseActivity {
                 object.put("iquantity",arrivalHeadBeans.get(i).getIquantity().replace(arrivalHeadBeans.get(i).getcComUnitName(),""));
                 object.put("irowno",arrivalHeadBeans.get(i).getIrowno());
                 object.put("cposition",arrivalHeadBeans.get(i).getCposition());
+               if(getIntent().getStringExtra("menuname").equals("货位调整")){
+                   object.put("inposition", arrivalHeadBeans.get(i).getInposition());
+                }
                 jsonArray.put(object);
             }
-            jsonObject.put("datatetails",jsonArray);
+
+           // jsonObject.put("datatetails",jsonArray);
+            jsonObject.put("datatetails",new JSONArray(new Gson().toJson(arrivalHeadBeans)));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         final String obj=jsonObject.toString();
         Log.i("json object",obj);
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(Request.URL).build();
-        RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),obj);
-
-        iUrl login = retrofit.create(iUrl.class);
-        retrofit2.Call<ResponseBody> data = login.getMessage(body);
+        retrofit2.Call<ResponseBody> data = Request.getRequestbody(obj);
         data.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -264,6 +272,10 @@ public class PutListActivity extends BaseActivity {
                               stringscandata=sharedPreferences.getString("CreateCheckdetailsscan","");
                             }else  if(getIntent().getStringExtra("menuname").equals("生产入库")){
                                stringscandata=sharedPreferences.getString("CreateProductStoreInscan","");
+                            }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+                                stringscandata=sharedPreferences.getString("UpdatePositionTRscan","");
+                            }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+                                stringscandata=sharedPreferences.getString("CreatePuArrivalInscan","");
                             }
 
                             List<String> listcode = new ArrayList<>(Arrays.asList(stringscandata));
@@ -290,6 +302,14 @@ public class PutListActivity extends BaseActivity {
 
                                 sharedPreferences.edit().putString("CreateProductStoreInscanlist",strings).commit();
                                 sharedPreferences.edit().putString("CreateProductStoreInscanscan",listcode.toString()).commit();
+                            }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
+
+                                sharedPreferences.edit().putString("UpdatePositionTRlist",strings).commit();
+                                sharedPreferences.edit().putString("UpdatePositionTRscan",listcode.toString()).commit();
+                            }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+
+                                sharedPreferences.edit().putString("CreatePuArrivalInlist",strings).commit();
+                                sharedPreferences.edit().putString("CreatePuArrivalInscan",listcode.toString()).commit();
                             }
 
 

@@ -94,13 +94,17 @@ public class MaterialActivity extends BaseActivity {
                 for (int i = 0; i <meterialBeanList.size() ; i++) {
 
                     if(bean.getCinvcode().equals(meterialBeanList.get(i).getCinvcode())){
+                        if(meterialBeanList.get(i).getMoqty().equals("")){
+                            Toast.makeText(MaterialActivity.this,"无应领数量，不能投料!",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         double a= Double.parseDouble(meterialBeanList.get(i).getMoqty());
-
                         if(Double.parseDouble(binding.etIqty.getText().toString())>a){
                             Toast.makeText(MaterialActivity.this,"投入数量不能大于应领数量!",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         bean.setCposcode(cposcode);
+                        bean.setIqty(binding.etIqty.getText().toString());
                         meterialBeanList.set(i,bean);
                         functionAdapter=new FunctionAdapter(meterialBeanList);
                         binding.rvList.setAdapter(functionAdapter);
@@ -172,7 +176,7 @@ public class MaterialActivity extends BaseActivity {
 
 
                     }else  if(response.code()==500){
-                        Toast.makeText(MaterialActivity.this,"投料人未填写！",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MaterialActivity.this,"服务器内部错误！",Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -262,7 +266,7 @@ public class MaterialActivity extends BaseActivity {
         Log.i("list-->",list.toString());
 
 
-        if(list.isEmpty()){
+        if(list.isEmpty()||list.size()<2){
             return;
         }
 

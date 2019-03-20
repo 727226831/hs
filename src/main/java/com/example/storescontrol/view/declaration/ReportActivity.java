@@ -66,6 +66,10 @@ public class ReportActivity extends BaseActivity {
         binding=DataBindingUtil.setContentView(this,R.layout.activity_report);
         Untils.initTitle("完工报单",this);
 
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
+        sharedPreferences.edit().putString("QualifiedList","").commit();
+
           binding.etCusercode.addTextChangedListener(new TextWatcher() {
               @Override
               public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -126,6 +130,8 @@ public class ReportActivity extends BaseActivity {
           binding.llUnqualified.setOnClickListener(onClickListener);
           binding.bUser.setOnClickListener(onClickListener);
           binding.bDes.setOnClickListener(onClickListener);
+          binding.llQualified.setOnClickListener(onClickListener);
+
 
 
     }
@@ -157,8 +163,12 @@ public class ReportActivity extends BaseActivity {
                       Intent intent = new Intent(ReportActivity.this, UnqualifiedListActivity.class);
                       intent.putExtra("cmocode", list.get(0));
                       startActivity(intent);
-
                       }
+                      break;
+                  case R.id.ll_qualified:
+                          Intent intent = new Intent(ReportActivity.this, QualifiedListActivity.class);
+                          startActivity(intent);
+
                       break;
                   case R.id.b_user:
                       if(!binding.etCusercode.getText().toString().isEmpty()){
@@ -187,6 +197,18 @@ public class ReportActivity extends BaseActivity {
                 .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
                 .initiateScan();// 初始化扫码
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
+
+        String string=sharedPreferences.getString("QualifiedList","");
+        if(!string.equals("")) {
+            List<String> stringList = Arrays.asList(string.substring(1, string.length() - 1).split(","));
+            binding.etIhgqty.setText(stringList.size() + "");
+        }
     }
 
     @Override
