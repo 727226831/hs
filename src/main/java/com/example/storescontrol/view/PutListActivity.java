@@ -140,30 +140,14 @@ public class PutListActivity extends BaseActivity {
 
             }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
                 jsonObject.put("methodname", "CreatePuArrivalIn");
+                jsonObject.put("cdefine10",getIntent().getStringExtra("cdefine10"));
+
             }
             jsonObject.put("usercode",usercode);
             jsonObject.put("acccode",acccode);
             Date curDate =  new Date(System.currentTimeMillis());
             SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd");
             jsonObject.put("ddate",formatter.format(curDate));
-            JSONArray jsonArray=new JSONArray();
-            for (int i = 0; i <arrivalHeadBeans.size() ; i++) {
-                JSONObject object=new JSONObject();
-                object.put("cinvcode",arrivalHeadBeans.get(i).getcInvCode());
-                object.put("cbatch",arrivalHeadBeans.get(i).getCbatch());
-                object.put("ccode",arrivalHeadBeans.get(i).getCcode());
-                object.put("cwhcode",arrivalHeadBeans.get(i).getCwhcode());
-                object.put("imageid",arrivalHeadBeans.get(i).getImageid());
-                object.put("iquantity",arrivalHeadBeans.get(i).getIquantity().replace(arrivalHeadBeans.get(i).getcComUnitName(),""));
-                object.put("irowno",arrivalHeadBeans.get(i).getIrowno());
-                object.put("cposition",arrivalHeadBeans.get(i).getCposition());
-               if(getIntent().getStringExtra("menuname").equals("货位调整")){
-                   object.put("inposition", arrivalHeadBeans.get(i).getInposition());
-                }
-                jsonArray.put(object);
-            }
-
-           // jsonObject.put("datatetails",jsonArray);
             jsonObject.put("datatetails",new JSONArray(new Gson().toJson(arrivalHeadBeans)));
         } catch (JSONException e) {
             e.printStackTrace();

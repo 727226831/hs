@@ -152,6 +152,7 @@ public class ReportActivity extends BaseActivity {
                           intent.putExtra("copname",COpdesc);
                           intent.putExtra("cuser",binding.etCusercode.getText().toString());
                           intent.putExtra("ccode",list.get(1));
+                          intent.putExtra("ctuopan",binding.etCtuopan.getText().toString());
                           startActivity(intent);
                       }
                       break;
@@ -384,7 +385,10 @@ public class ReportActivity extends BaseActivity {
                                         Intent intent=new Intent(ReportActivity.this,ReportprintActivity.class);
                                         intent.putExtra("cmocode", list.get(0));
                                         intent.putExtra("ccode",list.get(1));
-                                        intent.putExtra("copname",list.get(2));
+                                        intent.putExtra("copcode",list.get(2));
+                                        intent.putExtra("iqty",binding.etIhgqty.getText().toString());
+                                        intent.putExtra("user",binding.etCusercode.getText().toString());
+                                        intent.putExtra("ctuopan",binding.etCtuopan.getText().toString());
                                         startActivity(intent);
                                     }
                                 }).setPositiveButton("取消", new DialogInterface.OnClickListener() {

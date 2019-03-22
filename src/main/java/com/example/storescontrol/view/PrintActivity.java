@@ -41,7 +41,7 @@ public class PrintActivity extends BaseActivity {
 
     List<String> list;
     ArrivalHeadBean arrivalHeadBean;
-    String cvenabbname,ddate,cInvStd,cInvCName,gys;
+
     double overplus=-1;
     boolean isRegister=false;
     @Override
@@ -52,11 +52,10 @@ public class PrintActivity extends BaseActivity {
         Untils.initTitle("打印",this);
        viewtag=binding.getRoot().findViewById(R.id.rl_tag);
         code=getIntent().getStringExtra("code");
-        cvenabbname=getIntent().getStringExtra("cvenabbname");
-        ddate=getIntent().getStringExtra("ddate");
         overplus=getIntent().getDoubleExtra("overplus",-1);
-        cInvCName=getIntent().getStringExtra("cInvCName");
-        cInvStd=getIntent().getStringExtra("cInvStd");
+
+        arrivalHeadBean=getIntent().getParcelableExtra("arrivalHeadBean");
+        binding.setArrivalHeadBean(arrivalHeadBean);
 
 
         if(!code.isEmpty()){
@@ -86,14 +85,7 @@ public class PrintActivity extends BaseActivity {
     }
 
     private void initView(String iquantity) {
-        binding.etCinvcode.setText(list.get(0));
-        binding.etCbatch.setText(list.get(1));
-        binding.etIquantity.setText(iquantity+"");
 
-        binding.etCvenabbname.setText(cvenabbname);
-        binding.etCInvCName.setText(cInvCName);
-        binding.etCInvStd.setText(cInvStd);
-        binding.etGys.setText(getIntent().getStringExtra("gys"));
         list.set(2,iquantity+"");
         list.set(6,UUID.randomUUID().toString());
         String codenew=list.toString().replace(",","$");

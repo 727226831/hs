@@ -14,6 +14,16 @@ public class Completion1Bean {
         private String ctuopan;
         private String cuser;
 
+    public String getDpritdate() {
+        return dpritdate;
+    }
+
+    public void setDpritdate(String dpritdate) {
+        this.dpritdate = dpritdate;
+    }
+
+    private String dpritdate;
+
     public String getcNextOp() {
         return cNextOp;
     }

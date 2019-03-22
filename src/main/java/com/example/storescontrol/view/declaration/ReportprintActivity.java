@@ -95,9 +95,7 @@ public class ReportprintActivity extends BaseActivity {
         textViewcinvname=findViewById(R.id.tv_cinvname);
         textViewtime=findViewById(R.id.tv_time);
 
-        Date curDate =  new Date(System.currentTimeMillis());
-        SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd");
-        textViewtime.setText("面料进入静置房时间:/n"+formatter.format(curDate));
+
 
         getMeteriallist();
         getGetWGInfo();
@@ -124,6 +122,7 @@ public class ReportprintActivity extends BaseActivity {
             jsonObject.put("acccode",acccode);
             jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+            jsonObject.put("clasttuopan",getIntent().getStringExtra("ctuopan"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -143,7 +142,17 @@ public class ReportprintActivity extends BaseActivity {
                             completion1BeanList.add(gson.fromJson(jsonElement, Completion1Bean.class));
                         }
 
+                        for (int i = 0; i <completion1BeanList.size() ; i++) {
+                            if(completion1BeanList.get(i).getCopcode().equals(getIntent().getStringExtra("copcode"))){
+
+                                completion1BeanList.get(i).setCuser(getIntent().getStringExtra("user"));
+                                completion1BeanList.get(i).setIqty(getIntent().getStringExtra("iqty"));
+                            }
+
+                        }
+
                         textViewcinvname.setText(completion1BeanList.get(completion1BeanList.size()-1).getCinvname());
+                        textViewtime.setText("面料进入静置房时间:"+completion1BeanList.get(0).getDpritdate());
                         recyclerView1.setLayoutManager(new LinearLayoutManager(ReportprintActivity.this));
                         recyclerView1.addItemDecoration(new DividerItemDecoration(ReportprintActivity.this,DividerItemDecoration.VERTICAL));
                         Completion1Adapter completion1Adapter=new Completion1Adapter(completion1BeanList);
@@ -168,6 +177,7 @@ public class ReportprintActivity extends BaseActivity {
             jsonObject.put("methodname","GetBeiliao");
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+            jsonObject.put("ctuopan",getIntent().getStringExtra("ctuopan"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -190,7 +200,7 @@ public class ReportprintActivity extends BaseActivity {
                         SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd");
                         createCode(meterialBeanList.get(0).getCinvcode()+"$"+meterialBeanList.get(0).getCbatch()+"$"
                                 +meterialBeanList.get(0).getIqty()+"$"+"$"
-                                +getIntent().getStringExtra("ccode")+"$"+"$"+formatter.format(curDate)+"$"+meterialBeanList.get(0).getCvenbatch());
+                                +getIntent().getStringExtra("cmocode")+"$"+"$"+formatter.format(curDate)+"$"+meterialBeanList.get(0).getCvenbatch());
 
 
                         recyclerView2.setLayoutManager(new LinearLayoutManager(ReportprintActivity.this));

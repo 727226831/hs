@@ -58,9 +58,8 @@ public class MaterialActivity extends BaseActivity {
 
     MeterialBean bean;
     String cposcode="";
-    String  stringScan;
     List<String> list;
-    boolean isSuccess;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,6 +223,7 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("methodname","GetBeiliao");
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
+            jsonObject.put("ctuopan",getIntent().getStringExtra("ctuopan"));
 
         } catch (JSONException e) {
             e.printStackTrace();

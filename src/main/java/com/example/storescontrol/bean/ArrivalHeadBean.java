@@ -53,6 +53,16 @@ public class ArrivalHeadBean implements Parcelable {
     private  String cbatch;
     private  String iquantity;
 
+    public String getCdefine10() {
+        return cdefine10;
+    }
+
+    public void setCdefine10(String cdefine10) {
+        this.cdefine10 = cdefine10;
+    }
+
+    private  String cdefine10;
+
     public String getCvenbatch() {
         return cvenbatch;
     }
@@ -454,6 +464,7 @@ public class ArrivalHeadBean implements Parcelable {
         dest.writeString(this.material);
         dest.writeString(this.cbatch);
         dest.writeString(this.iquantity);
+        dest.writeString(this.cdefine10);
         dest.writeString(this.cvenbatch);
         dest.writeString(this.inposition);
         dest.writeString(this.imageid);
@@ -492,6 +503,7 @@ public class ArrivalHeadBean implements Parcelable {
         this.material = in.readString();
         this.cbatch = in.readString();
         this.iquantity = in.readString();
+        this.cdefine10 = in.readString();
         this.cvenbatch = in.readString();
         this.inposition = in.readString();
         this.imageid = in.readString();

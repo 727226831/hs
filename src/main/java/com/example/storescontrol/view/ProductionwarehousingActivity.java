@@ -122,12 +122,16 @@ public class ProductionwarehousingActivity extends BaseActivity {
             binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.VISIBLE);
         }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
+
+            binding.rlCdefine10.setVisibility(View.VISIBLE);
             binding.lCvenabbname.setVisibility(View.VISIBLE);
             binding.lBatch.setVisibility(View.VISIBLE);
             binding.bSearch.setVisibility(View.VISIBLE);
             binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
             binding.tvCcodekey.setText("采购订单号：");
+            binding.rlCwhcode.setVisibility(View.GONE);
+
         }
         else {
 
@@ -284,16 +288,17 @@ public class ProductionwarehousingActivity extends BaseActivity {
                         if(jsonArray.isNull(0)!=true){
                             String data=jsonArray.getJSONObject(0).toString();
                             arrivalHeadBean=gson.fromJson(data,ArrivalHeadBean.class);
-                            string1=data.substring(1,data.length()-1)+",";
                             binding.setBean(arrivalHeadBean);
 
                             if(list.size()>3) {
                                 ccode = list.get(4);
-                                binding.tvCvenbatch.setText("供应商批次："+list.get(7));
-                            }
-                            if(ccode !=null) {
                                 getArrivalHeadBycode(ccode);
+                                binding.tvCvenbatch.setText("供应商批次："+list.get(7));
+                                arrivalHeadBean.setCvenbatch(list.get(7));
+
                             }
+                            string1=new Gson().toJson(arrivalHeadBean).substring(1,new Gson().toJson(arrivalHeadBean).length()-1)+",";
+
                         }else {
 
                             Toast.makeText(ProductionwarehousingActivity.this,"未找到数据",Toast.LENGTH_SHORT).show();
@@ -343,9 +348,12 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             arrivalHeadBean.setIquantity(list.get(2));
                             arrivalHeadBean.setIrowno(list.get(5));
                             arrivalHeadBean.setImageid(imageid);
-                            arrivalHeadBean.setCvenbatch(list.get(7));
+
 
                             arrivalHeadBean.setCwhcode(cwhcode);
+
+
+
                             if(file!=null) {
                                 arrivalHeadBean.setFile(file.getAbsolutePath());
                             }
@@ -453,6 +461,9 @@ public class ProductionwarehousingActivity extends BaseActivity {
                 case R.id.b_search:
                     Intent intent=new Intent(ProductionwarehousingActivity.this,PutListActivity.class);
                     intent.putExtra("menuname",getIntent().getStringExtra("menuname"));
+                    if(binding.rlCdefine10.getVisibility()==View.VISIBLE){
+                        intent.putExtra("cdefine10",binding.etCdefine10.getText().toString());
+                    }
                     startActivity(intent);
                     break;
                 case R.id.b_submit:
@@ -678,6 +689,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
      */
     private void initBatch() {
         binding.etBatch.setText("");
+
         Picasso.get().load(getResources().getResourceName(R.mipmap.ic_defaultpic)).into(binding.ibUpload);
         file=null;
         binding.etBatch.setFocusable(true);
@@ -709,13 +721,9 @@ public class ProductionwarehousingActivity extends BaseActivity {
 
                 if(overplus!=-1){
                     Intent intent = new Intent(ProductionwarehousingActivity.this, PrintActivity.class);
+                    intent.putExtra("arrivalHeadBean",arrivalHeadBean);
                     intent.putExtra("code", stringScan);
                     intent.putExtra("overplus", overplus);
-                    intent.putExtra("cvenabbname", arrivalHeadBean.getCvenabbname());
-                    intent.putExtra("ddate", arrivalHeadBean.getDdate());
-                    intent.putExtra("cInvCName",arrivalHeadBean.getcInvCName());
-                    intent.putExtra("cInvStd",arrivalHeadBean.getcInvStd());
-
                     startActivity(intent);
                 }
 
@@ -825,6 +833,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
         arrivalHeadBean=null;
         binding.setBean(arrivalHeadBean);
         binding.tvNumber.setText("");
+        binding.tvCvenbatch.setText("");
         getCount();
     }
     //获取已加入清单量
