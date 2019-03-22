@@ -7,7 +7,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".view.declaration.ReportActivity">
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+         <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -38,6 +44,34 @@
                     android:id="@+id/et_code"
                     android:layout_toRightOf="@id/tv_title1"
                     android:layout_toLeftOf="@id/iv_scan"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center_vertical"
+                    style="@style/textview"
+                    android:textColor="@color/blue"
+                    android:id="@+id/tv_title2"
+                    android:text="上道完工托盘："
+                    />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/iv_scan2"
+                    android:layout_margin="10dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_centerVertical="true"
+                    style="@style/edittext"
+                    android:id="@+id/et_ctuopan"
+                    android:layout_toRightOf="@id/tv_title2"
+                    android:layout_toLeftOf="@id/iv_scan2"
                     />
             </RelativeLayout>
             <LinearLayout
@@ -113,6 +147,7 @@
                     android:layout_height="40dp" />
             </LinearLayout>
             <LinearLayout
+
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -137,6 +172,7 @@
             </LinearLayout>
             <LinearLayout style="@style/line" />
             <LinearLayout
+                android:id="@+id/ll_qualified"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -216,6 +252,7 @@
                         style="@style/textview"
                         />
                     <EditText
+                        android:text="0"
                         android:inputType="number"
                         android:id="@+id/et_ibhgqty"
                         android:layout_marginRight="@dimen/layout_margin"
@@ -269,25 +306,34 @@
 
 
         </LinearLayout>
-        <Button
-            android:layout_alignParentBottom="true"
-            android:id="@+id/b_submit"
-            android:layout_margin="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@color/blue"
-            android:textColor="@android:color/white"
-            android:text="完工填报"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <Button
-            android:layout_toLeftOf="@id/b_submit"
-            android:id="@+id/b_material"
-            android:layout_margin="10dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/blue"
-            android:textColor="@android:color/white"
-            android:text="投料"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <Button
+                     android:layout_alignParentBottom="true"
+                     android:id="@+id/b_submit"
+                     android:layout_margin="10dp"
+                     android:layout_alignParentRight="true"
+                     android:background="@color/blue"
+                     android:textColor="@android:color/white"
+                     android:text="完工填报"
+                     android:layout_width="wrap_content"
+                     android:layout_height="40dp" />
+                 <Button
+                     android:layout_toLeftOf="@id/b_submit"
+                     android:id="@+id/b_material"
+                     android:layout_margin="10dp"
+                     android:layout_alignParentBottom="true"
+                     android:background="@color/blue"
+                     android:textColor="@android:color/white"
+                     android:text="投料"
+                     android:layout_width="wrap_content"
+                     android:layout_height="40dp" />
+             </RelativeLayout>
+
+         </LinearLayout>
+        </ScrollView>
+
+
     </RelativeLayout>
 </layout>

@@ -55,7 +55,7 @@
             style="@style/form_fontsize"
             android:text="@{data.ctuopan}"
             android:background="@drawable/bg_border"
-            android:layout_width="110dp"
+            android:layout_width="70dp"
             />
 
 
@@ -63,7 +63,7 @@
             style="@style/form_fontsize"
             android:text="@{data.cuser}"
             android:background="@drawable/bg_border"
-            android:layout_width="match_parent"
+            android:layout_width="50dp"
             />
 
 

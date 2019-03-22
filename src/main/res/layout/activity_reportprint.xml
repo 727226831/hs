@@ -11,10 +11,11 @@
 
 
     <LinearLayout
+        android:layout_gravity="center_horizontal"
         android:id="@+id/ll_form"
         android:layout_margin="@dimen/layout_margin"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
@@ -63,13 +64,13 @@
         style="@style/form_fontsize"
         android:background="@drawable/bg_border"
         android:text="托盘/料架编号"
-        android:layout_width="110dp"
+        android:layout_width="70dp"
          />
     <TextView
         style="@style/form_fontsize"
         android:background="@drawable/bg_border"
         android:text="操作工"
-        android:layout_width="match_parent" />
+        android:layout_width="50dp" />
 </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:background="@drawable/bg_border"
@@ -133,11 +134,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_time"
                     style="@style/form_fontsize"
                     android:layout_width="match_parent"
                     android:layout_height="57dp"
                     android:gravity="start"
-                    android:text="面料进入静置房时间："
+                    android:text="面料进入静置房时间:"
                     />
                 <TextView
                     style="@style/form_fontsize"
@@ -148,9 +150,9 @@
                     />
             </LinearLayout>
                 <ImageView
-                    android:layout_marginRight="10dp"
+
                     android:id="@+id/iv_qrcode"
-                    android:layout_alignParentRight="true"
+                     android:layout_marginLeft="30dp"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/bg_border"
                     android:layout_width="60dp"
