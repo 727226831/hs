@@ -60,6 +60,7 @@ public class ReportActivity extends BaseActivity {
     String  stringScan;
     List<String> list;
     String COpdesc;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class ReportActivity extends BaseActivity {
         Untils.initTitle("完工报单",this);
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
         sharedPreferences.edit().putString("QualifiedList","").commit();
 
           binding.etCusercode.addTextChangedListener(new TextWatcher() {
@@ -143,6 +144,7 @@ public class ReportActivity extends BaseActivity {
 
                       if(list!=null) {
                           createWG();
+                          createSerialIn();
                       }
                       break;
                   case R.id.b_material:
@@ -152,7 +154,7 @@ public class ReportActivity extends BaseActivity {
                           intent.putExtra("copname",COpdesc);
                           intent.putExtra("cuser",binding.etCusercode.getText().toString());
                           intent.putExtra("ccode",list.get(1));
-                          intent.putExtra("ctuopan",binding.etCtuopan.getText().toString());
+                          intent.putExtra("ctuopan1",binding.etCtuopan1.getText().toString());
                           startActivity(intent);
                       }
                       break;
@@ -187,6 +189,44 @@ public class ReportActivity extends BaseActivity {
               }
         }
     };
+
+    private void createSerialIn() {
+        JSONObject jsonObject=new JSONObject();
+        try {
+
+            jsonObject.put("methodname","CreateSerialIn");
+            jsonObject.put("acccode",acccode);
+            jsonObject.put("cmocode",list.get(0));
+            jsonObject.put("ccode",list.get(1));
+            jsonObject.put("userid",binding.etCusercode.getText());
+
+            jsonObject.put("datatetails",new JSONArray(sharedPreferences.getString("QualifiedList","")));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String obj=jsonObject.toString();
+        Log.i("json object",obj);
+
+        Call<ResponseBody> data =Request.getRequestbody(obj);
+        data.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                try {
+                    if(response.code()==200) {
+                        sharedPreferences.edit().putString("QualifiedList","").commit();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
+            } });
+    }
+
     private void openScan() {
 
         new IntentIntegrator(ReportActivity.this)
@@ -311,6 +351,7 @@ public class ReportActivity extends BaseActivity {
             jsonObject.put("cmocode",list.get(0));
             jsonObject.put("ccode",list.get(1));
             jsonObject.put("copcode",list.get(2));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -388,7 +429,9 @@ public class ReportActivity extends BaseActivity {
                                         intent.putExtra("copcode",list.get(2));
                                         intent.putExtra("iqty",binding.etIhgqty.getText().toString());
                                         intent.putExtra("user",binding.etCusercode.getText().toString());
-                                        intent.putExtra("ctuopan",binding.etCtuopan.getText().toString());
+                                        intent.putExtra("ctuopan1",binding.etCtuopan1.getText().toString());
+                                        intent.putExtra("clasttuopan",binding.etCtuopan.getText().toString());
+
                                         startActivity(intent);
                                     }
                                 }).setPositiveButton("取消", new DialogInterface.OnClickListener() {

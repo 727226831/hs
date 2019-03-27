@@ -78,6 +78,8 @@ public class IndexActivity extends BaseActivity {
                     Intent intent=new Intent();
                     switch (i){
                         case 0:
+                            intent  =new Intent(IndexActivity.this,PurchaselistActivity.class);
+                            break;
                         case 1:
                             intent  =new Intent(IndexActivity.this,ProductionwarehousingActivity.class);
                             break;
@@ -94,6 +96,9 @@ public class IndexActivity extends BaseActivity {
                             break;
                         case 6:
                             intent  =new Intent(IndexActivity.this,ReportActivity.class);
+                            break;
+                        case 10:
+                            intent  =new Intent(IndexActivity.this,ProductionwarehousingActivity.class);
                             break;
 
                         default:

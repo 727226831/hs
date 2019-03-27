@@ -122,7 +122,8 @@ public class ReportprintActivity extends BaseActivity {
             jsonObject.put("acccode",acccode);
             jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
-            jsonObject.put("clasttuopan",getIntent().getStringExtra("ctuopan"));
+            jsonObject.put("clasttuopan",getIntent().getStringExtra("clasttuopan"));
+            jsonObject.put("ctuopan1",getIntent().getStringExtra("ctuopan1"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -174,10 +175,12 @@ public class ReportprintActivity extends BaseActivity {
         JSONObject jsonObject=new JSONObject();
         try {
 
-            jsonObject.put("methodname","GetBeiliao");
+            jsonObject.put("methodname","GetPrintBeiliao");
             jsonObject.put("acccode",acccode);
+            jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
-            jsonObject.put("ctuopan",getIntent().getStringExtra("ctuopan"));
+            jsonObject.put("ctuopan1",getIntent().getStringExtra("ctuopan1"));
+            jsonObject.put("clasttuopan",getIntent().getStringExtra("clasttuopan"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

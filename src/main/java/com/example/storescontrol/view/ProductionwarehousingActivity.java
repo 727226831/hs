@@ -98,44 +98,24 @@ public class ProductionwarehousingActivity extends BaseActivity {
         sharedPreferences=getSharedPreferences("sp",MODE_PRIVATE);
         if(getIntent().getStringExtra("menuname").equals("生产入库")){
             binding.lCvenabbname.setVisibility(View.GONE);
-            binding.lBatch.setVisibility(View.VISIBLE);
-            binding.bSearch.setVisibility(View.VISIBLE);
-            binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
         }else  if(getIntent().getStringExtra("menuname").equals("采购入库")){
-            binding.lCvenabbname.setVisibility(View.VISIBLE);
-            binding.lBatch.setVisibility(View.VISIBLE);
-            binding.bSearch.setVisibility(View.VISIBLE);
-            binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
         }else  if(getIntent().getStringExtra("menuname").equals("库存盘点")||
                 getIntent().getStringExtra("menuname").equals("产成品入库")){
             binding.lCvenabbname.setVisibility(View.GONE);
             binding.lBatch.setVisibility(View.GONE);
-            binding.bSearch.setVisibility(View.VISIBLE);
-            binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
         }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
             binding.lCvenabbname.setVisibility(View.GONE);
-            binding.lBatch.setVisibility(View.VISIBLE);
-            binding.bSearch.setVisibility(View.VISIBLE);
-            binding.tvTotal.setVisibility(View.VISIBLE);
-            binding.rlUpdate.setVisibility(View.VISIBLE);
         }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
-
             binding.rlCdefine10.setVisibility(View.VISIBLE);
-            binding.lCvenabbname.setVisibility(View.VISIBLE);
-            binding.lBatch.setVisibility(View.VISIBLE);
-            binding.bSearch.setVisibility(View.VISIBLE);
-            binding.tvTotal.setVisibility(View.VISIBLE);
             binding.rlUpdate.setVisibility(View.GONE);
             binding.tvCcodekey.setText("采购订单号：");
             binding.rlCwhcode.setVisibility(View.GONE);
 
         }
         else {
-
-            binding.lCvenabbname.setVisibility(View.VISIBLE);
             binding.lBatch.setVisibility(View.GONE);
             binding.bSearch.setVisibility(View.GONE);
             binding.tvTotal.setVisibility(View.GONE);

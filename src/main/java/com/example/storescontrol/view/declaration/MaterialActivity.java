@@ -34,6 +34,7 @@ import com.example.storescontrol.view.ScanActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -150,6 +151,7 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("copname",getIntent().getStringExtra("copname"));
             jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
             jsonObject.put("cuser",getIntent().getStringExtra("cuser"));
+            jsonObject.put("ctuopan1",getIntent().getStringExtra("ctuopan1"));
             SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
             if(sharedPreferences.getString("Meteriallist","").equals("")){
                 jsonObject.put("datatetails","");
@@ -161,7 +163,7 @@ public class MaterialActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String obj=jsonObject.toString();
+        final String obj=jsonObject.toString();
         Log.i("json object",obj);
 
         Call<ResponseBody> data =Request.getRequestbody(obj);
@@ -171,9 +173,9 @@ public class MaterialActivity extends BaseActivity {
 
                 try {
                     if(response.code()==200) {
-                        Toast.makeText(MaterialActivity.this,"投料成功",Toast.LENGTH_LONG).show();
 
-
+                       JSONObject object=new JSONObject(response.body().string());
+                        Toast.makeText(MaterialActivity.this,object.getString("ResultMessage"),Toast.LENGTH_LONG).show();
                     }else  if(response.code()==500){
                         Toast.makeText(MaterialActivity.this,"服务器内部错误！",Toast.LENGTH_LONG).show();
                     }
@@ -223,7 +225,8 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("methodname","GetBeiliao");
             jsonObject.put("acccode",acccode);
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
-            jsonObject.put("ctuopan",getIntent().getStringExtra("ctuopan"));
+            jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
+
 
         } catch (JSONException e) {
             e.printStackTrace();

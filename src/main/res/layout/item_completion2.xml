@@ -15,7 +15,7 @@
         <TextView
             style="@style/form_fontsize"
             android:text="@{data.cinvname}"
-            android:layout_width="150dp" />
+            android:layout_width="100dp" />
         <TextView
             style="@style/form_fontsize"
             android:text="@{data.cinvcode}"
@@ -27,7 +27,7 @@
         <TextView
             style="@style/form_fontsize"
             android:text="@{data.cvenbatch}"
-            android:layout_width="60dp" />
+            android:layout_width="110dp" />
     </LinearLayout>
 </LinearLayout>
 </layout>

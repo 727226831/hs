@@ -100,7 +100,7 @@
                     <TextView
                         style="@style/form_fontsize"
                         android:text="材料名称"
-                        android:layout_width="150dp" />
+                        android:layout_width="100dp" />
                     <TextView
                         style="@style/form_fontsize"
                         android:text="物料零件号"
@@ -112,7 +112,7 @@
                     <TextView
                         style="@style/form_fontsize"
                         android:text="物料批次号"
-                        android:layout_width="60dp" />
+                        android:layout_width="110dp" />
                 </LinearLayout>
              <android.support.v7.widget.RecyclerView
                  android:background="@drawable/bg_border"

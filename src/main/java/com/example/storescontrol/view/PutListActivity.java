@@ -138,6 +138,7 @@ public class PutListActivity extends BaseActivity {
                 jsonObject.put("methodname", "UpdatePositionTR");
 
 
+
             }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
                 jsonObject.put("methodname", "CreatePuArrivalIn");
                 jsonObject.put("cdefine10",getIntent().getStringExtra("cdefine10"));
@@ -258,6 +259,7 @@ public class PutListActivity extends BaseActivity {
                                stringscandata=sharedPreferences.getString("CreateProductStoreInscan","");
                             }else  if(getIntent().getStringExtra("menuname").equals("货位调整")){
                                 stringscandata=sharedPreferences.getString("UpdatePositionTRscan","");
+
                             }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
                                 stringscandata=sharedPreferences.getString("CreatePuArrivalInscan","");
                             }
@@ -290,6 +292,7 @@ public class PutListActivity extends BaseActivity {
 
                                 sharedPreferences.edit().putString("UpdatePositionTRlist",strings).commit();
                                 sharedPreferences.edit().putString("UpdatePositionTRscan",listcode.toString()).commit();
+
                             }else  if(getIntent().getStringExtra("menuname").equals("采购到货")){
 
                                 sharedPreferences.edit().putString("CreatePuArrivalInlist",strings).commit();
