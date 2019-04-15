@@ -199,8 +199,11 @@ public class ReportActivity extends BaseActivity {
             jsonObject.put("cmocode",list.get(0));
             jsonObject.put("ccode",list.get(1));
             jsonObject.put("userid",binding.etCusercode.getText());
-
-            jsonObject.put("datatetails",new JSONArray(sharedPreferences.getString("QualifiedList","")));
+            if(sharedPreferences.getString("QualifiedList","").equals("")){
+                jsonObject.put("datatetails","");
+            }else {
+                jsonObject.put("datatetails",new JSONArray(sharedPreferences.getString("QualifiedList","")));
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -402,6 +405,7 @@ public class ReportActivity extends BaseActivity {
             jsonObject.put("cmemo","");
             jsonObject.put("cmemo2",binding.etCmemo2.getText());
             jsonObject.put("cusercode",binding.etCusercode.getText());
+            jsonObject.put("clasttuopan",binding.etCtuopan.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();

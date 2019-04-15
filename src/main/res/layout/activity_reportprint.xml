@@ -111,7 +111,7 @@
                         android:layout_width="80dp" />
                     <TextView
                         style="@style/form_fontsize"
-                        android:text="物料批次号"
+                        android:text="供应商生产日期"
                         android:layout_width="110dp" />
                 </LinearLayout>
              <android.support.v7.widget.RecyclerView
@@ -132,7 +132,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/tv_time"
                     style="@style/form_fontsize"
@@ -144,7 +144,7 @@
                 <TextView
                     style="@style/form_fontsize"
                     android:layout_width="match_parent"
-                    android:layout_height="57dp"
+                    android:layout_height="match_parent"
                     android:gravity="left"
                     android:text="备注："
                     />

@@ -60,13 +60,14 @@ public class MaterialActivity extends BaseActivity {
     MeterialBean bean;
     String cposcode="";
     List<String> list;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_material);
         Untils.initTitle("投料明细",this);
-
+        sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
         binding.etCwhcode.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -150,11 +151,12 @@ public class MaterialActivity extends BaseActivity {
             jsonObject.put("cmocode",getIntent().getStringExtra("cmocode"));
             jsonObject.put("copname",getIntent().getStringExtra("copname"));
             jsonObject.put("ccode",getIntent().getStringExtra("ccode"));
-            jsonObject.put("cuser",getIntent().getStringExtra("cuser"));
+            jsonObject.put("cuser",usercode);
             jsonObject.put("ctuopan1",getIntent().getStringExtra("ctuopan1"));
             SharedPreferences sharedPreferences = getSharedPreferences("sp", Context.MODE_PRIVATE);
             if(sharedPreferences.getString("Meteriallist","").equals("")){
-                jsonObject.put("datatetails","");
+                Toast.makeText(MaterialActivity.this,"请先投料!",Toast.LENGTH_LONG).show();
+                return;
             }else {
                 JSONArray jsonArray = new JSONArray(sharedPreferences.getString("Meteriallist", ""));
                 jsonObject.put("datatetails", jsonArray);
@@ -176,6 +178,10 @@ public class MaterialActivity extends BaseActivity {
 
                        JSONObject object=new JSONObject(response.body().string());
                         Toast.makeText(MaterialActivity.this,object.getString("ResultMessage"),Toast.LENGTH_LONG).show();
+                        sharedPreferences.getString("Meteriallist", "");
+                        sharedPreferences.edit().putString("Meteriallist","").commit();
+
+
                     }else  if(response.code()==500){
                         Toast.makeText(MaterialActivity.this,"服务器内部错误！",Toast.LENGTH_LONG).show();
                     }
