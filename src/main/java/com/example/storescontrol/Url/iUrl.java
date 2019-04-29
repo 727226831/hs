@@ -1,4 +1,4 @@
-package com.example.storescontrol.Url;
+package com.example.storescontrol.url;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
