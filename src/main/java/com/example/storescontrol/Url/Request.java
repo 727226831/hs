@@ -1,10 +1,7 @@
 package com.example.storescontrol.url;
 
-import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -20,9 +17,9 @@ public class Request {
     public static Call<ResponseBody> getRequestbody(String obj) {
 
          OkHttpClient client = new OkHttpClient.Builder().
-                connectTimeout(30, TimeUnit.SECONDS).
-                readTimeout(30, TimeUnit.SECONDS).
-                writeTimeout(30, TimeUnit.SECONDS).build();
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         Retrofit retrofit=new Retrofit.Builder().client(client).baseUrl(URL).build();
 
         RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),obj);
