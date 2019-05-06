@@ -323,7 +323,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             String string="{"+string1+string2+"}";
 
                             arrivalHeadBean=gson.fromJson(string,ArrivalHeadBean.class);
-                            arrivalHeadBean.setMaterial(list.get(4));   //料号
+                            arrivalHeadBean.setCinvcode(list.get(0));   //料号
                             arrivalHeadBean.setCbatch(list.get(1));  //批号
                             arrivalHeadBean.setIquantity(list.get(2));
                             arrivalHeadBean.setIrowno(list.get(5));
@@ -346,7 +346,7 @@ public class ProductionwarehousingActivity extends BaseActivity {
                             if(getIntent().getStringExtra("menuname").equals("采购入库")) {
                                 Toast.makeText(ProductionwarehousingActivity.this, "未找到数据", Toast.LENGTH_SHORT).show();
                             }else {
-                                arrivalHeadBean.setMaterial(list.get(0));   //料号
+                                arrivalHeadBean.setCinvcode(list.get(0));   //料号
                                 arrivalHeadBean.setCbatch(list.get(1));  //批号
                                 arrivalHeadBean.setIquantity(list.get(2));
                                 arrivalHeadBean.setCcode(list.get(4));

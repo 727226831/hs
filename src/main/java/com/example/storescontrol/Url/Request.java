@@ -1,4 +1,4 @@
-package com.example.storescontrol.url;
+package com.example.storescontrol.Url;
 
 
 import java.util.concurrent.TimeUnit;

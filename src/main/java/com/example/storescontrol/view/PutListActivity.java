@@ -233,7 +233,7 @@ public class PutListActivity extends BaseActivity {
             vh.textViewccode.setText(arrivalHeadBeans.get(i).getCcode());
             vh.textViewline.setText(arrivalHeadBeans.get(i).getIrowno());
             vh.textViewcposcode.setText("货位："+arrivalHeadBeans.get(i).getCposition());
-            vh.textViewmaterial.setText("料号："+arrivalHeadBeans.get(i).getMaterial());
+            vh.textViewmaterial.setText("料号："+arrivalHeadBeans.get(i).getcInvCode());
             vh.textViewbatch.setText("批号："+arrivalHeadBeans.get(i).getCbatch());
             vh.textViewcount.setText("数量："+arrivalHeadBeans.get(i).getIquantity());
 

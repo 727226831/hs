@@ -49,7 +49,7 @@ public class ArrivalHeadBean implements Parcelable {
     private String file;
     private  String cwhcode;
     private  String cposition;
-    private  String material;
+    private  String cinvcode;
     private  String cbatch;
     private  String iquantity;
 
@@ -232,12 +232,12 @@ public class ArrivalHeadBean implements Parcelable {
 
 
 
-    public String getMaterial() {
-        return material;
+    public String getCinvcode() {
+        return cinvcode;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setCinvcode(String cinvcode) {
+        this.cinvcode = cinvcode;
     }
 
 
@@ -461,7 +461,7 @@ public class ArrivalHeadBean implements Parcelable {
         dest.writeString(this.file);
         dest.writeString(this.cwhcode);
         dest.writeString(this.cposition);
-        dest.writeString(this.material);
+        dest.writeString(this.cinvcode);
         dest.writeString(this.cbatch);
         dest.writeString(this.iquantity);
         dest.writeString(this.cdefine10);
@@ -500,7 +500,7 @@ public class ArrivalHeadBean implements Parcelable {
         this.file = in.readString();
         this.cwhcode = in.readString();
         this.cposition = in.readString();
-        this.material = in.readString();
+        this.cinvcode = in.readString();
         this.cbatch = in.readString();
         this.iquantity = in.readString();
         this.cdefine10 = in.readString();

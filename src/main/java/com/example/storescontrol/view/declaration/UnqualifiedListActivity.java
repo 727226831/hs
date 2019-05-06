@@ -11,12 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.storescontrol.R;
 import com.example.storescontrol.Url.Request;
 import com.example.storescontrol.Url.Untils;
-import com.example.storescontrol.bean.MeterialBean;
 import com.example.storescontrol.bean.UnqualifiedBean;
 import com.example.storescontrol.databinding.ItemUnqualifiedBinding;
 import com.example.storescontrol.view.BaseActivity;
